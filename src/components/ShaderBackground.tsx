@@ -57,25 +57,20 @@ const fragmentShader = `
     vec2 st = gl_FragCoord.xy / u_resolution.xy;
     float yShift = y + sin(st.x * 2.0 + u_time * 0.2) * 0.02;
 
-    vec3 gradientColor;
-    if (yShift > 0.65) {
-      gradientColor = mix(colorMidHigh, colorTop, smoothstep(0.65, 1.0, yShift));
-    } else if (yShift > 0.4) {
-      gradientColor = mix(colorHorizon, colorMidHigh, smoothstep(0.4, 0.65, yShift));
-    } else if (yShift > 0.15) {
-      gradientColor = mix(colorMidLow, colorHorizon, smoothstep(0.15, 0.4, yShift));
-    } else if (yShift > 0.0) {
-      gradientColor = mix(colorBottom, colorMidLow, smoothstep(0.0, 0.15, yShift));
-    } else {
-      // Smoothly transition: sunset bottom -> peach -> cool grey, no hard line
-      vec3 belowTop = mix(colorBottom, colorPeach, smoothstep(0.0, -0.5, yShift));
-      gradientColor = mix(belowTop, colorCool, smoothstep(-0.5, -2.0, yShift));
-    }
+    // Continuous chain-mix gradient — no piecewise seams
+    vec3 gradientColor = colorCool;
+    gradientColor = mix(gradientColor, colorPeach,    smoothstep(-2.2, -0.7, yShift));
+    gradientColor = mix(gradientColor, colorBottom,   smoothstep(-0.4,  0.05, yShift));
+    gradientColor = mix(gradientColor, colorMidLow,   smoothstep( 0.05, 0.22, yShift));
+    gradientColor = mix(gradientColor, colorHorizon,  smoothstep( 0.22, 0.45, yShift));
+    gradientColor = mix(gradientColor, colorMidHigh,  smoothstep( 0.45, 0.7,  yShift));
+    gradientColor = mix(gradientColor, colorTop,      smoothstep( 0.7,  1.05, yShift));
 
-    // Petal / flower form, positioned below the first viewport
+    // Petal / flower form, peeking in from the right edge below the fold
+    // Center sits past the viewport edge so only ~half the bloom is visible
     vec2 ppos;
-    float petalCenterX = 0.22 * u_resolution.x;
-    float petalCenterY_fromTop = u_viewport_h * 1.5;
+    float petalCenterX = u_resolution.x + u_viewport_h * 0.05;
+    float petalCenterY_fromTop = u_viewport_h * 2.2;
     ppos.x = (gl_FragCoord.x - petalCenterX) / u_viewport_h;
     ppos.y = (gl_FragCoord.y - (u_resolution.y - petalCenterY_fromTop)) / u_viewport_h;
 
@@ -102,9 +97,11 @@ const fragmentShader = `
     final_color += (n - 0.5) * 0.12;
 
     // Vignette only within first viewport
+    // Smoothly fade vignette out below the fold instead of hard-cutting
     float vy = clamp(y, 0.0, 1.0);
     vec2 vUv = vec2(st.x, vy);
-    float vignette = length(vUv - 0.5) * step(0.0, y);
+    float vignetteFade = smoothstep(-0.3, 0.05, y);
+    float vignette = length(vUv - 0.5) * vignetteFade;
     final_color -= vignette * 0.15;
 
     gl_FragColor = vec4(final_color, 1.0);

@@ -43,12 +43,12 @@ export default function Pillars() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-12">
         {pillars.map((p) => (
           <div key={p.index} className={`relative group ${p.className ?? ''}`}>
-            <div className="text-[0.6rem] uppercase tracking-widest text-muted mb-6 flex items-center gap-3">
+            <div className="text-[0.6rem] tracking-widest text-muted mb-6 flex items-center gap-3">
               <span className="w-1.5 h-1.5 border border-main rounded-full group-hover:bg-glow group-hover:border-glow transition-colors"></span>
               {p.index}
             </div>
-            <h3 className="font-serif text-3xl mb-6 italic text-core font-light">{p.title}</h3>
-            <p className={`text-[0.7rem] leading-relaxed text-main uppercase tracking-widest opacity-80 ${p.list ? 'mb-6' : ''}`}>
+            <h3 className="font-display text-3xl mb-6 text-core font-semibold">{p.title}</h3>
+            <p className={`text-[0.7rem] leading-relaxed text-main tracking-widest opacity-80 ${p.list ? 'mb-6' : ''}`}>
               {p.body}
             </p>
             {p.list && (

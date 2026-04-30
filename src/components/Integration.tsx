@@ -5,18 +5,18 @@ export default function Integration() {
 
       <div className="flex flex-col xl:flex-row gap-16 items-start">
         <div className="w-full xl:w-1/3 pt-4">
-          <div className="text-[0.6rem] uppercase tracking-widest text-muted mb-6">VI. Live Example</div>
-          <h2 className="font-serif text-4xl italic mb-6 text-core font-light leading-tight">
+          <div className="text-[0.6rem] tracking-widest text-muted mb-6">VI. Live Example</div>
+          <h2 className="font-display text-4xl mb-6 text-core font-semibold leading-tight">
             From idea to live agent in 30 minutes.
           </h2>
-          <p className="text-[0.7rem] leading-relaxed text-main uppercase tracking-widest opacity-80 mb-8">
+          <p className="text-[0.7rem] leading-relaxed text-main tracking-widest opacity-80 mb-8">
             Authorize a budget, pick a strategy, hand it to a council of agents. Atara handles wallet creation, chain routing, drift detection, and consensus approval.
           </p>
-          <p className="text-[0.65rem] leading-relaxed text-main uppercase tracking-widest opacity-60 mb-12">
+          <p className="text-[0.65rem] leading-relaxed text-main tracking-widest opacity-60 mb-12">
             Compare to building from scratch: weeks of wallet integration, chain routing, compliance, and orchestration logic.
           </p>
 
-          <div className="space-y-4 text-[0.6rem] uppercase tracking-widest text-muted border-t border-faint pt-8">
+          <div className="space-y-4 text-[0.6rem] tracking-widest text-muted border-t border-faint pt-8">
             <div className="flex justify-between items-center hover:text-main transition-colors">
               <span>&gt; Budget</span>
               <span className="text-main font-bold">$1,000 USDC</span>
@@ -46,7 +46,7 @@ export default function Integration() {
                 <div className="w-2 h-2 rounded-full bg-white/20"></div>
                 <div className="w-2 h-2 rounded-full bg-white/20"></div>
               </div>
-              <div className="text-[0.55rem] uppercase tracking-widest text-white/40">
+              <div className="text-[0.55rem] tracking-widest text-white/40">
                 rebalance-agent.ts — ~/atara-core
               </div>
             </div>

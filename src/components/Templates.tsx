@@ -10,11 +10,11 @@ export default function Templates() {
   return (
     <section className="py-24 border-t border-faint relative">
       <div className="crosshair h top-0 right-0 -translate-y-1/2"></div>
-      <div className="text-[0.6rem] uppercase tracking-widest text-muted mb-6">V. Scaffolding</div>
-      <h2 className="font-serif text-3xl md:text-4xl italic font-light text-core mb-4 max-w-3xl">
+      <div className="text-[0.6rem] tracking-widest text-muted mb-6">V. Scaffolding</div>
+      <h2 className="font-display text-3xl md:text-4xl font-semibold text-core mb-4 max-w-3xl">
         Production-ready templates for financial use cases.
       </h2>
-      <p className="text-[0.7rem] leading-relaxed tracking-widest text-main uppercase opacity-80 mb-12 max-w-2xl">
+      <p className="text-[0.7rem] leading-relaxed tracking-widest text-main opacity-80 mb-12 max-w-2xl">
         Skip the 5-week build. Drop in a template, ship in an afternoon.
       </p>
 
@@ -24,9 +24,9 @@ export default function Templates() {
             key={t.id}
             className="min-w-[280px] max-w-[320px] flex-shrink-0 border border-faint p-6 bg-cool/10 hover:bg-cool/30 transition-colors"
           >
-            <div className="text-[0.55rem] uppercase tracking-widest text-muted mb-4">Tmpl_{t.id}</div>
-            <h3 className="font-serif text-xl italic font-light text-core mb-3">{t.name}</h3>
-            <p className="text-[0.65rem] leading-relaxed tracking-widest text-main uppercase opacity-80 mb-6 min-h-[5rem]">
+            <div className="text-[0.55rem] tracking-widest text-muted mb-4">Tmpl_{t.id}</div>
+            <h3 className="font-display text-xl font-semibold text-core mb-3">{t.name}</h3>
+            <p className="text-[0.65rem] leading-relaxed tracking-widest text-main opacity-80 mb-6 min-h-[5rem]">
               {t.desc}
             </p>
             <div className="bg-core/95 text-cool/90 px-3 py-2 rounded-sm">
