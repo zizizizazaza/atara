@@ -23,7 +23,6 @@ export default function HudVisual() {
 
     const ink = (a: number) => `rgba(26, 21, 28, ${a})`
     const warm = (a: number) => `rgba(212, 97, 40, ${a})`
-    const cool = (a: number) => `rgba(50, 70, 84, ${a})`
 
     const draw = () => {
       raf = requestAnimationFrame(draw)
