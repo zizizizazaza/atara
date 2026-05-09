@@ -4,17 +4,20 @@ export default function Overlay() {
       <div className="font-display text-2xl tracking-[0.2em] font-semibold">Atara</div>
 
       <nav className="flex items-center gap-6 md:gap-10">
-        <a href="#features" className="text-[0.75rem] tracking-wide text-main hover:text-glow transition-colors font-mono">
-          Features
+        <a href="#use-cases" className="text-[0.75rem] tracking-wide text-main hover:text-glow transition-colors font-mono">
+          Use cases
         </a>
-        <a href="#templates" className="text-[0.75rem] tracking-wide text-main hover:text-glow transition-colors font-mono">
-          Templates
+        <a href="#layers" className="text-[0.75rem] tracking-wide text-main hover:text-glow transition-colors font-mono">
+          Architecture
         </a>
         <a href="#pricing" className="text-[0.75rem] tracking-wide text-main hover:text-glow transition-colors font-mono">
           Pricing
         </a>
+        <a href="#faq" className="text-[0.75rem] tracking-wide text-main hover:text-glow transition-colors font-mono">
+          FAQ
+        </a>
         <button className="action-btn">Docs</button>
-        <button className="action-btn">Get keys</button>
+        <button className="action-btn">Get an atara-key</button>
       </nav>
     </header>
   )

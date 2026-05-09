@@ -1,8 +1,8 @@
 const cols = [
-  { title: 'Product', items: ['Pricing', 'Templates', 'Changelog'] },
-  { title: 'Developers', items: ['Docs', 'GitHub', 'API Reference'] },
-  { title: 'Community', items: ['Discord', 'Twitter', 'Manifesto'] },
-  { title: 'Company', items: ['About', 'Contact', 'Privacy', 'Terms'] },
+  { title: 'Product', items: ['Pay Layer', 'Consensus Layer', 'LLM Router', 'Pricing', 'Changelog'] },
+  { title: 'Developers', items: ['Documentation', 'API Reference', 'SDK · TypeScript', 'SDK · Python', 'Status'] },
+  { title: 'Company', items: ['About', 'Customers', 'Blog', 'Contact'] },
+  { title: 'Legal', items: ['Terms', 'Privacy', 'Compliance'] },
 ]
 
 export default function FinalCTA() {
@@ -13,9 +13,12 @@ export default function FinalCTA() {
       <div className="text-center max-w-3xl mx-auto mb-32 relative z-10">
         <div className="text-[0.6rem] tracking-widest text-muted mb-6">VIII. Initialize</div>
         <h2 className="font-display text-5xl md:text-6xl lg:text-7xl font-semibold text-core leading-none mb-12">
-          Start building with<br />Atara.
+          Your agent has work to do.<br />Let it pay.
         </h2>
-        <button className="action-btn text-sm">Get an API Key</button>
+        <div className="flex flex-wrap justify-center gap-8">
+          <button className="action-btn text-sm">Get an atara-key</button>
+          <button className="action-btn text-sm">Read the docs</button>
+        </div>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-12 border-t border-faint pt-12">
@@ -35,7 +38,7 @@ export default function FinalCTA() {
 
       <div className="mt-16 pt-8 border-t border-faint flex justify-between items-center">
         <p className="text-[0.65rem] tracking-widest text-main font-bold font-display text-base">
-          Programmable stablecoin payments. Built for what's next.
+          Atara · The payment layer for AI agents.
         </p>
         <p className="text-[0.55rem] tracking-widest text-muted">
           © 2026 Atara Labs

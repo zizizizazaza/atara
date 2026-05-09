@@ -1,37 +1,37 @@
 export default function Integration() {
   return (
-    <section className="py-32 relative border-t border-faint">
+    <section id="example" className="py-32 relative border-t border-faint">
       <div className="crosshair v -top-8 left-1/2 -translate-x-1/2"></div>
 
       <div className="flex flex-col xl:flex-row gap-16 items-start">
         <div className="w-full xl:w-1/3 pt-4">
-          <div className="text-[0.6rem] tracking-widest text-muted mb-6">VI. Live Example</div>
+          <div className="text-[0.6rem] tracking-widest text-muted mb-6">V. Live Example</div>
           <h2 className="font-display text-4xl mb-6 text-core font-semibold leading-tight">
-            From idea to live agent in 30 minutes.
+            One command. One bill. Every receipt.
           </h2>
           <p className="text-[0.7rem] leading-relaxed text-main tracking-widest opacity-80 mb-8">
-            Authorize a budget, pick a strategy, hand it to a council of agents. Atara handles wallet creation, chain routing, drift detection, and consensus approval.
+            One CLI call resolves the merchant, picks the cheapest rail, checks the spending session, settles, and writes a signed receipt to the trace.
           </p>
           <p className="text-[0.65rem] leading-relaxed text-main tracking-widest opacity-60 mb-12">
-            Compare to building from scratch: weeks of wallet integration, chain routing, compliance, and orchestration logic.
+            Compare to building from scratch: provider SDKs, retry logic, fallback handling, audit pipeline.
           </p>
 
           <div className="space-y-4 text-[0.6rem] tracking-widest text-muted border-t border-faint pt-8">
             <div className="flex justify-between items-center hover:text-main transition-colors">
-              <span>&gt; Budget</span>
-              <span className="text-main font-bold">$1,000 USDC</span>
+              <span>&gt; Merchant</span>
+              <span className="text-main font-bold">OpenAI API credits</span>
             </div>
             <div className="flex justify-between items-center hover:text-main transition-colors">
-              <span>&gt; Assets</span>
-              <span className="text-main font-bold">BTC · ETH · SOL</span>
+              <span>&gt; Amount</span>
+              <span className="text-main font-bold">$50 USD</span>
             </div>
             <div className="flex justify-between items-center hover:text-main transition-colors">
-              <span>&gt; Drift Threshold</span>
-              <span className="text-main font-bold">5%</span>
+              <span>&gt; Project</span>
+              <span className="text-main font-bold">ai-agent</span>
             </div>
             <div className="flex justify-between items-center hover:text-main transition-colors">
-              <span>&gt; Consensus</span>
-              <span className="text-main font-bold">Investment-Gurus</span>
+              <span>&gt; Spend limit</span>
+              <span className="text-main font-bold">$500 / week</span>
             </div>
           </div>
         </div>
@@ -47,58 +47,44 @@ export default function Integration() {
                 <div className="w-2 h-2 rounded-full bg-white/20"></div>
               </div>
               <div className="text-[0.55rem] tracking-widest text-white/40">
-                rebalance-agent.ts — ~/atara-core
+                ~/agent · zsh
               </div>
             </div>
 
             <pre className="text-[0.75rem] leading-loose tracking-wide overflow-x-auto terminal-scroll pb-4">
               <code className="text-cool/90">
-                <span style={{ color: '#c678dd' }}>import</span>{' '}
-                {'{ Atara } '}
-                <span style={{ color: '#c678dd' }}>from</span>{' '}
-                <span style={{ color: '#98c379' }}>'@atara/sdk'</span>;{'\n\n'}
-                <span style={{ color: '#c678dd' }}>const</span> atara ={' '}
-                <span style={{ color: '#e5c07b' }}>new</span>{' '}
-                <span style={{ color: '#61afef' }}>Atara</span>(process.env.ATARA_KEY);{'\n\n'}
-                <span style={{ color: '#5c6370', fontStyle: 'italic' }}>
-                  // Authorize a $1000 budget. Rebalance weekly across BTC/ETH/SOL,
-                </span>
+                <span style={{ color: '#56b6c2' }}>$</span>{' '}
+                <span style={{ color: '#61afef' }}>atara</span> pay{' \\'}
+                {'\n    '}--to <span style={{ color: '#98c379' }}>"OpenAI API credits"</span>{' \\'}
+                {'\n    '}--amount <span style={{ color: '#d19a66' }}>50usd</span>{' \\'}
+                {'\n    '}--project <span style={{ color: '#98c379' }}>ai-agent</span>
+                {'\n\n'}
+                <span style={{ color: '#98c379' }}>✓</span> Routing: Crossmint (3 rails compared, lowest fee)
                 {'\n'}
-                <span style={{ color: '#5c6370', fontStyle: 'italic' }}>
-                  // gated by a council of investment-master agents.
-                </span>
+                <span style={{ color: '#98c379' }}>✓</span> Spending session OK ($50 of $500 limit)
                 {'\n'}
-                <span style={{ color: '#c678dd' }}>const</span> agent ={' '}
-                <span style={{ color: '#c678dd' }}>await</span> atara.investment.
-                <span style={{ color: '#61afef' }}>autoRebalance</span>({'{'}
-                {'\n  '}user: <span style={{ color: '#98c379' }}>'alice@example.com'</span>,
-                {'\n  '}budget: {'{'} amount:{' '}
-                <span style={{ color: '#d19a66' }}>1000</span>, currency:{' '}
-                <span style={{ color: '#98c379' }}>'USDC'</span> {'}'},
-                {'\n  '}assets: [
-                <span style={{ color: '#98c379' }}>'BTC'</span>,{' '}
-                <span style={{ color: '#98c379' }}>'ETH'</span>,{' '}
-                <span style={{ color: '#98c379' }}>'SOL'</span>],
-                {'\n  '}consensus:{' '}
-                <span style={{ color: '#98c379' }}>'investment-gurus'</span>,{'  '}
-                <span style={{ color: '#5c6370', fontStyle: 'italic' }}>
-                  // multi-agent council
-                </span>
-                {'\n  '}threshold: <span style={{ color: '#d19a66' }}>0.05</span>,{'             '}
-                <span style={{ color: '#5c6370', fontStyle: 'italic' }}>
-                  // rebalance only on &gt;5% drift
-                </span>
-                {'\n  '}schedule:{' '}
-                <span style={{ color: '#98c379' }}>'weekly'</span>
+                <span style={{ color: '#98c379' }}>✓</span> Settled in 2.1s
+                {'\n\n'}
+                <span style={{ color: '#5c6370' }}>  trace_id     :</span>{' '}
+                <span style={{ color: '#e5c07b' }}>t_8a2f...</span>
                 {'\n'}
-                {'}'});{'\n\n'}
-                <span style={{ color: '#5c6370', fontStyle: 'italic' }}>
-                  // Returns a live, idempotent agent handle
-                </span>
+                <span style={{ color: '#5c6370' }}>  cost         :</span>{' '}
+                <span style={{ color: '#d19a66' }}>$50.00</span>{' '}
+                <span style={{ color: '#5c6370' }}>+ $0.15 fee</span>
                 {'\n'}
-                <span style={{ color: '#e5c07b' }}>console</span>.
-                <span style={{ color: '#56b6c2' }}>log</span>(agent.id,{' '}
-                agent.status);
+                <span style={{ color: '#5c6370' }}>  rail_used    :</span>{' '}
+                <span style={{ color: '#61afef' }}>crossmint_card</span>
+                {'\n'}
+                <span style={{ color: '#5c6370' }}>  rail_fallback:</span>{' '}
+                <span style={{ color: '#61afef' }}>tempo</span>{' '}
+                <span style={{ color: '#5c6370' }}>(skipped)</span>
+                {'\n'}
+                <span style={{ color: '#5c6370' }}>  receipt      :</span>{' '}
+                <span style={{ color: '#98c379' }}>https://atara.cn/r/t_8a2f</span>
+                {'\n'}
+                <span style={{ color: '#5c6370' }}>  balance      :</span>{' '}
+                <span style={{ color: '#d19a66' }}>9,095 sats</span>{' '}
+                <span style={{ color: '#5c6370' }}>remaining</span>
               </code>
             </pre>
           </div>

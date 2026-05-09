@@ -1,37 +1,37 @@
 const tiers = [
   {
-    name: 'Free',
-    price: '$0',
-    period: '/ mo',
-    desc: '100 transfers + 50 consensus calls per month. Build your demo. No card required.',
-    cta: 'Start Free',
+    name: 'Builder',
+    price: '0.5%',
+    period: '/ routed',
+    desc: 'For solo developers and small teams. Sats-level metering, free to start, pay only when your agent pays.',
+    cta: 'Start building',
   },
   {
-    name: 'Pro',
-    price: '$99',
-    period: '/ mo',
-    desc: '5,000 transfers + 1,000 consensus calls per month. Ship to production.',
-    cta: 'Go Pro',
+    name: 'Team',
+    price: '0.3%',
+    period: '/ routed',
+    desc: 'For cross-border teams and growing companies. Monthly reconciliation export, optional consensus layer.',
+    cta: 'Start a team',
     highlight: true,
   },
   {
     name: 'Enterprise',
     price: 'Custom',
     period: '',
-    desc: 'Private deployment, SLA, dedicated support. Talk to sales.',
-    cta: 'Contact Sales',
+    desc: 'For sustained GMV, multi-team setups, and compliance requirements. Custom SLA, dedicated audit ingest.',
+    cta: 'Talk to sales',
   },
 ]
 
 export default function Pricing() {
   return (
-    <section className="py-24 border-t border-faint relative">
-      <div className="text-[0.6rem] tracking-widest text-muted mb-6">VII. Pricing</div>
+    <section id="pricing" className="py-24 border-t border-faint relative">
+      <div className="text-[0.6rem] tracking-widest text-muted mb-6">VI. Pricing</div>
       <h2 className="font-display text-3xl md:text-4xl font-semibold text-core mb-4 max-w-3xl">
-        Simple, usage-based pricing. No seat tax.
+        Pay only when your agent pays.
       </h2>
       <p className="text-[0.7rem] leading-relaxed tracking-widest text-main opacity-60 mb-16">
-        Pricing scales with usage, not seats.
+        No seat fees. No minimums. Routing fee taken out of each settled payment.
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
