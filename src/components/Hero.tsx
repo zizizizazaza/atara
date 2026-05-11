@@ -3,35 +3,42 @@ import AuroraVisual from './AuroraVisual'
 
 type Brand = { name: string; icon?: string }
 
-const compatibleAgents: Brand[] = [
-  { name: 'Claude', icon: 'simple-icons:claude' },
-  { name: 'Cursor', icon: 'simple-icons:cursor' },
-  { name: 'OpenAI', icon: 'simple-icons:openai' },
-  { name: 'Gemini', icon: 'simple-icons:googlegemini' },
+const partners: Brand[] = [
   { name: 'Anthropic', icon: 'simple-icons:anthropic' },
-  { name: 'Codex', icon: 'simple-icons:openai' },
-]
-
-const poweredBy: Brand[] = [
+  { name: 'OpenAI', icon: 'simple-icons:openai' },
+  { name: 'Cursor', icon: 'simple-icons:cursor' },
+  { name: 'Gemini', icon: 'simple-icons:googlegemini' },
+  { name: 'Perplexity', icon: 'simple-icons:perplexity' },
+  { name: 'Replit', icon: 'simple-icons:replit' },
+  { name: 'Vercel', icon: 'simple-icons:vercel' },
+  { name: 'GitHub', icon: 'simple-icons:github' },
+  { name: 'Notion', icon: 'simple-icons:notion' },
+  { name: 'Linear', icon: 'simple-icons:linear' },
+  { name: 'Slack', icon: 'simple-icons:slack' },
+  { name: 'Stripe', icon: 'simple-icons:stripe' },
   { name: 'Crossmint' },
   { name: 'Tempo' },
   { name: 'x402' },
   { name: 'Lightning', icon: 'simple-icons:lightning' },
   { name: 'Circle', icon: 'simple-icons:circle' },
   { name: 'Sui', icon: 'token:sui' },
+  { name: 'Amazon', icon: 'simple-icons:amazon' },
+  { name: 'Shopify', icon: 'simple-icons:shopify' },
+  { name: 'DoorDash', icon: 'simple-icons:doordash' },
+  { name: 'Booking', icon: 'simple-icons:bookingdotcom' },
 ]
 
 function Logo({ brand, size = 22 }: { brand: Brand; size?: number }) {
   if (brand.icon) {
     return (
-      <span className="inline-flex items-center gap-2 opacity-80 hover:opacity-100 transition-opacity">
+      <span className="inline-flex items-center gap-2 opacity-75 hover:opacity-100 transition-opacity shrink-0">
         <img
           src={`https://api.iconify.design/${brand.icon}.svg?color=%231A151C`}
           alt={brand.name}
           title={brand.name}
           style={{ height: size, width: size }}
         />
-        <span className="font-display text-sm font-medium text-core tracking-tight">
+        <span className="font-display text-sm font-medium text-core tracking-tight whitespace-nowrap">
           {brand.name}
         </span>
       </span>
@@ -40,7 +47,7 @@ function Logo({ brand, size = 22 }: { brand: Brand; size?: number }) {
   return (
     <span
       title={brand.name}
-      className="font-display font-semibold text-core tracking-tight opacity-80"
+      className="font-display font-semibold text-core tracking-tight opacity-75 whitespace-nowrap shrink-0"
       style={{ fontSize: '0.95rem', letterSpacing: '-0.01em' }}
     >
       {brand.name}
@@ -82,8 +89,13 @@ export default function Hero() {
           </p>
 
           <div className="flex flex-wrap items-center gap-8 mb-10">
-            <button className="action-btn text-sm">Start building</button>
-            <button className="action-btn text-sm">Talk to sales</button>
+            <button
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium text-sm tracking-wide shadow-md hover:opacity-90 transition-opacity"
+              style={{ backgroundColor: '#1A151C' }}
+            >
+              Get started
+              <span aria-hidden>→</span>
+            </button>
           </div>
 
           <div className="max-w-xl">
@@ -115,24 +127,17 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="mt-16 pt-8 border-t border-faint relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div>
-          <div className="text-[0.55rem] tracking-superwide text-muted mb-4">
-            Works with
-          </div>
-          <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
-            {compatibleAgents.map((b) => (
-              <Logo key={b.name} brand={b} />
-            ))}
-          </div>
+      <div className="mt-16 pt-8 relative z-10">
+        <div className="text-[0.55rem] tracking-superwide text-muted mb-5">
+          Investors & partners
         </div>
-        <div>
-          <div className="text-[0.55rem] tracking-superwide text-muted mb-4">
-            Powered by
-          </div>
-          <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
-            {poweredBy.map((b) => (
-              <Logo key={b.name} brand={b} />
+        <div className="marquee">
+          <div className="marquee-track">
+            {partners.map((b) => (
+              <Logo key={`a-${b.name}`} brand={b} />
+            ))}
+            {partners.map((b) => (
+              <Logo key={`b-${b.name}`} brand={b} />
             ))}
           </div>
         </div>

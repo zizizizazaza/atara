@@ -17,8 +17,8 @@ export default function App() {
       <main className="relative z-10 w-full min-h-screen grid-bg pt-40 pb-20 px-6 md:px-20 lg:px-32 xl:px-48">
         <Hero />
         <UseCases />
-        <ThreeLayers />
         <WhyAtara />
+        <ThreeLayers />
         <Integration />
         <Pricing />
         <FAQ />
