@@ -70,16 +70,15 @@ export default function Hero() {
   }
 
   return (
-    <section className="min-h-[80vh] flex flex-col justify-center relative mb-24">
-      <div className="crosshair v -top-10 left-1/2 -translate-x-1/2"></div>
+    <section className="flex flex-col justify-start relative mb-24 pt-4">
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
         <div className="lg:col-span-7">
           <div className="text-[0.65rem] tracking-superwide text-muted mb-6">
             The payment layer for AI agents
           </div>
-          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-core mb-4 leading-[1.02]">
-            One API.<br />Money moves.
+          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-core mb-4 leading-[1.05]">
+            0-fee payments for agents.<br />One API, every rail.
           </h1>
           <p className="font-display text-xl md:text-2xl text-core opacity-70 font-medium tracking-tight mb-8">
             Across agents, currencies, and chains.
@@ -127,8 +126,8 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="mt-16 pt-8 relative z-10">
-        <div className="text-[0.55rem] tracking-superwide text-muted mb-5">
+      <div className="mt-20 pt-4 relative z-10">
+        <div className="text-[0.55rem] tracking-superwide text-muted mb-3">
           Investors & partners
         </div>
         <div className="marquee">
