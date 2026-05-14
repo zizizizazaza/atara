@@ -1,5 +1,6 @@
 import ShaderBackground from './components/ShaderBackground'
 import Overlay from './components/Overlay'
+import ToastProvider from './components/ToastProvider'
 import Hero from './components/Hero'
 import UseCases from './components/UseCases'
 import ThreeLayers from './components/ThreeLayers'
@@ -11,7 +12,7 @@ import FinalCTA from './components/FinalCTA'
 
 export default function App() {
   return (
-    <>
+    <ToastProvider>
       <ShaderBackground />
       <Overlay />
       <main className="relative z-10 w-full min-h-screen grid-bg pt-28 pb-20 px-6 md:px-20 lg:px-32 xl:px-48">
@@ -24,6 +25,6 @@ export default function App() {
         <FAQ />
         <FinalCTA />
       </main>
-    </>
+    </ToastProvider>
   )
 }

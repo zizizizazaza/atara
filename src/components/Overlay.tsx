@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
+import { useToast } from './ToastProvider'
 
 export default function Overlay() {
   const [scrolled, setScrolled] = useState(false)
+  const { notify } = useToast()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -35,6 +37,7 @@ export default function Overlay() {
         </a>
         <button className="action-btn">Docs</button>
         <button
+          onClick={() => notify('Coming soon')}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-white font-medium text-[0.75rem] tracking-wide shadow-sm hover:opacity-90 transition-opacity"
           style={{ backgroundColor: '#1A151C' }}
         >

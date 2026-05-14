@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import AuroraVisual from './AuroraVisual'
+import { useToast } from './ToastProvider'
 
 type Brand = { name: string; icon?: string }
 
@@ -57,6 +58,7 @@ function Logo({ brand, size = 22 }: { brand: Brand; size?: number }) {
 
 export default function Hero() {
   const [copied, setCopied] = useState(false)
+  const { notify } = useToast()
   const installCmd = 'curl -fsSL https://atara.cn/install | sh'
 
   const onCopy = async () => {
@@ -89,6 +91,7 @@ export default function Hero() {
 
           <div className="flex flex-wrap items-center gap-8 mb-10">
             <button
+              onClick={() => notify('Coming soon')}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium text-sm tracking-wide shadow-md hover:opacity-90 transition-opacity"
               style={{ backgroundColor: '#1A151C' }}
             >
