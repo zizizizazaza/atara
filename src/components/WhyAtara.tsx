@@ -112,8 +112,6 @@ function BackdropRow({ chips, reverse, duration }: { chips: Chip[]; reverse?: bo
   )
 }
 
-const ink = '#1A151C'
-
 function PillarArt01() {
   // mock invoice receipt — looks like a real digital receipt, one bill across rails
   const lines = [

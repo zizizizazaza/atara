@@ -43,21 +43,6 @@ function CopyableCommand({ cmd }: { cmd: string }) {
   )
 }
 
-function CodeBlock({ children, label }: { children: string; label?: string }) {
-  return (
-    <div className="my-4 rounded-md border border-faint bg-core/95 text-cool/90 overflow-hidden">
-      {label && (
-        <div className="px-4 py-2 border-b border-white/10 text-[0.6rem] tracking-widest text-cool/60 font-mono">
-          {label}
-        </div>
-      )}
-      <pre className="px-4 py-3 text-[0.75rem] leading-relaxed font-mono overflow-x-auto terminal-scroll whitespace-pre">
-        {children}
-      </pre>
-    </div>
-  )
-}
-
 function Callout({ tone = 'note', children }: { tone?: 'note' | 'warn'; children: React.ReactNode }) {
   const isWarn = tone === 'warn'
   return (

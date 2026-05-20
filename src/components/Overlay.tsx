@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import { useToast } from './ToastProvider'
 
 export default function Overlay() {
   const [scrolled, setScrolled] = useState(false)
   const [solutionOpen, setSolutionOpen] = useState(false)
-  const { notify } = useToast()
   const closeTimer = useRef<number | null>(null)
 
   const openSolution = () => {
