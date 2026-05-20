@@ -5,7 +5,7 @@ export default function Integration() {
 
       <div className="flex flex-col xl:flex-row gap-16 items-start">
         <div className="w-full xl:w-1/3 pt-4">
-          <div className="text-[0.6rem] tracking-widest text-muted mb-6">V. Live Example</div>
+          <div className="text-[0.6rem] tracking-widest text-muted mb-6">III. Live Example</div>
           <h2 className="font-display text-4xl mb-6 text-core font-semibold leading-tight">
             One command. One bill. Every receipt.
           </h2>

@@ -1,0 +1,1083 @@
+<style>
+/* Loka Chain subpage */
+.loka-outline {
+  -webkit-text-stroke: 1.4px #1A151C;
+  color: transparent;
+}
+
+.lk-stat {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: lk-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes lk-rise {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.lk-card-numeral {
+  right: -1.5rem;
+  bottom: -3.5rem;
+  font-size: clamp(8rem, 14vw, 13rem);
+  letter-spacing: -0.06em;
+}
+
+.lk-card {
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease,
+    box-shadow 0.4s ease;
+}
+.lk-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 44px -28px rgba(26, 21, 28, 0.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lk-stat { opacity: 1; transform: none; animation: none; }
+  .lk-card { transition: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uc-plane, .uc-wire, .uc-eye, .uc-coin { animation: none; }
+  .uc-card, .uc-art, .uc-tile, .uc-bow, .uc-smile, .uc-meter-fill, .uc-drum, .uc-check {
+    transition: none;
+  }
+  .uc-meter-fill { transform: scaleX(1); }
+  .uc-check { opacity: 1; transform: scale(1); }
+}
+
+/* === AIUSD coin === */
+.coin {
+  position: relative;
+  perspective: 1000px;
+  display: inline-block;
+}
+.coin-face {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform-style: preserve-3d;
+  animation: coin-rock 7s ease-in-out infinite;
+  will-change: transform;
+  /* curved metallic surface via radial gradient */
+  background:
+    radial-gradient(circle at 50% 30%,
+      #5a4f55 0%,
+      #3a3036 22%,
+      #1a151c 58%,
+      #060309 95%);
+  box-shadow:
+    /* drop shadow */
+    0 24px 40px -10px rgba(26,21,28,0.55),
+    0 8px 16px -8px rgba(26,21,28,0.4),
+    /* edge ring */
+    0 0 0 1px rgba(0,0,0,0.5),
+    /* top rim highlight */
+    inset 0 5px 10px rgba(232,213,196,0.22),
+    inset 0 2px 0 rgba(255,255,255,0.08),
+    /* bottom inner shadow wraps around */
+    inset 0 -10px 20px rgba(0,0,0,0.6),
+    inset 0 -2px 0 rgba(0,0,0,0.45);
+}
+.coin-face::before {
+  /* polished highlight crescent on top */
+  content: '';
+  position: absolute;
+  top: 5%; left: 14%; right: 14%;
+  height: 32%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 0%, rgba(232,213,196,0.32), transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+.coin-face::after {
+  /* darken bottom — depth */
+  content: '';
+  position: absolute;
+  bottom: 0; left: 8%; right: 8%;
+  height: 42%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.45), transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+@keyframes coin-rock {
+  0%, 100% { transform: rotate3d(1, 5, 0, -7deg); }
+  50%      { transform: rotate3d(1, 5, 0,  7deg); }
+}
+.coin:hover .coin-face {
+  animation: coin-flip 1.6s cubic-bezier(0.34, 1.2, 0.64, 1) 1;
+}
+@keyframes coin-flip {
+  0%   { transform: rotateY(0deg); }
+  100% { transform: rotateY(360deg); }
+}
+.coin-svg {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  display: block;
+  z-index: 2;
+}
+.coin-shine {
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 3;
+}
+.coin-shine::after {
+  content: '';
+  position: absolute;
+  top: -10%; bottom: -10%;
+  width: 35%;
+  left: -45%;
+  background: linear-gradient(105deg, transparent 0%, rgba(255,255,255,0.5) 40%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0.5) 60%, transparent 100%);
+  transform: skewX(-18deg);
+  animation: coin-shine-sweep 5.5s ease-in-out infinite;
+  mix-blend-mode: overlay;
+}
+@keyframes coin-shine-sweep {
+  0%   { left: -45%; opacity: 0; }
+  18%  { opacity: 1; }
+  55%  { left: 130%; opacity: 0; }
+  100% { left: 130%; opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coin-face, .coin-shine::after { animation: none; }
+}
+
+/* Headline AI / USD split */
+.aiusd-split .ai {
+  color: #E8D5C4;
+  -webkit-text-stroke: 0;
+}
+.aiusd-split .usd {
+  color: transparent;
+  -webkit-text-stroke: 1.6px #E8D5C4;
+}
+
+/* === LokaChain upgrades === */
+
+/* Visible animated noise grain — Altera style */
+.bg-noise {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.85;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.10 0 0 0 0 0.08 0 0 0 0 0.11 0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 220px 220px;
+  animation: noise-shift 0.5s steps(1) infinite;
+}
+@keyframes noise-shift {
+  0%   { background-position: 0 0; }
+  16%  { background-position: -60px 40px; }
+  33%  { background-position: 40px -80px; }
+  50%  { background-position: -100px -30px; }
+  66%  { background-position: 80px 90px; }
+  83%  { background-position: -50px -60px; }
+  100% { background-position: 30px 50px; }
+}
+
+/* ASCII dot field — wave-animated canvas behind hero */
+.ascii-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  mask-image: radial-gradient(ellipse at 50% 35%, #000 5%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 35%, #000 5%, transparent 75%);
+}
+.ascii-field canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Section numeral accent badges */
+.sec-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.sec-label::before {
+  content: '';
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--sec-accent, #1A151C);
+  box-shadow: 0 0 0 3px rgba(26,21,28,0.06);
+}
+
+/* Hero — receipt stack */
+.hero-stage {
+  position: relative;
+  aspect-ratio: 5 / 5.4;
+  background:
+    radial-gradient(circle at 70% 0%, rgba(140,182,232,0.16), transparent 55%),
+    linear-gradient(to bottom right, rgba(26,21,28,0.04), transparent 60%);
+  border: 1px solid rgba(26,21,28,0.12);
+  border-radius: 20px;
+  overflow: hidden;
+}
+.hero-stage::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(26,21,28,0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(26,21,28,0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(circle at 50% 40%, #000 0%, transparent 85%);
+  -webkit-mask-image: radial-gradient(circle at 50% 40%, #000 0%, transparent 85%);
+  pointer-events: none;
+}
+.hero-stage .hs-corner {
+  position: absolute;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(26,21,28,0.5);
+  z-index: 4;
+}
+.hero-stage .hs-tick {
+  position: absolute;
+  width: 6px; height: 1px;
+  background: rgba(26,21,28,0.35);
+}
+
+.receipt {
+  position: absolute;
+  background: #F7F1E6;
+  border: 1px solid rgba(26,21,28,0.15);
+  border-radius: 14px;
+  padding: 22px 24px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.6) inset,
+    0 24px 48px -28px rgba(26,21,28,0.45),
+    0 8px 20px -16px rgba(26,21,28,0.25);
+  font-family: 'Space Grotesk', sans-serif;
+}
+.receipt-bg-a {
+  top: 6%; left: 6%;
+  width: 60%;
+  transform: rotate(-7deg);
+  opacity: 0.6;
+  background: #EFE6D2;
+  animation:
+    rcpt-enter-a 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both,
+    rcpt-float-a 9s ease-in-out 0.95s infinite;
+}
+.receipt-bg-b {
+  top: 4%; right: 4%;
+  width: 55%;
+  transform: rotate(6deg);
+  opacity: 0.7;
+  background: #F1EAD8;
+  animation:
+    rcpt-enter-b 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both,
+    rcpt-float-b 11s ease-in-out 1.05s infinite;
+}
+.receipt-main {
+  top: 22%; left: 50%;
+  width: 78%;
+  transform: translateX(-50%) rotate(-1.5deg);
+  z-index: 3;
+  animation:
+    rcpt-enter-main 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.36s both,
+    rcpt-float-main 8s ease-in-out 1.3s infinite;
+}
+@keyframes rcpt-enter-a {
+  0%   { opacity: 0; transform: rotate(-32deg) translate(-50px, -160px); }
+  60%  { opacity: 0.7; }
+  100% { opacity: 0.6; transform: rotate(-7deg) translate(0, 0); }
+}
+@keyframes rcpt-enter-b {
+  0%   { opacity: 0; transform: rotate(34deg) translate(60px, -180px); }
+  60%  { opacity: 0.8; }
+  100% { opacity: 0.7; transform: rotate(6deg) translate(0, 0); }
+}
+@keyframes rcpt-enter-main {
+  0%   { opacity: 0; transform: translateX(-50%) rotate(-14deg) translateY(-240px); }
+  70%  { opacity: 1; }
+  100% { opacity: 1; transform: translateX(-50%) rotate(-1.5deg) translateY(0); }
+}
+@keyframes rcpt-float-main {
+  0%, 100% { transform: translateX(-50%) rotate(-1.5deg) translateY(0); }
+  50%      { transform: translateX(-50%) rotate(-1.5deg) translateY(-4px); }
+}
+@keyframes rcpt-float-a {
+  0%, 100% { transform: rotate(-7deg) translateY(0); }
+  50%      { transform: rotate(-7deg) translateY(3px); }
+}
+@keyframes rcpt-float-b {
+  0%, 100% { transform: rotate(6deg) translateY(0); }
+  50%      { transform: rotate(6deg) translateY(2px); }
+}
+
+.receipt-perf-top, .receipt-perf-bot {
+  position: absolute; left: 0; right: 0;
+  height: 7px;
+  background:
+    radial-gradient(circle at 7px center, #E8D5C4 5.5px, transparent 6px) repeat-x;
+  background-size: 14px 14px;
+}
+.receipt-perf-top { top: -7px; }
+.receipt-perf-bot { bottom: -7px; }
+
+.stamp {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  transform: rotate(-12deg);
+  border: 1.8px solid #1A151C;
+  border-radius: 4px;
+  padding: 4px 8px 3px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  color: #1A151C;
+  font-weight: 700;
+  background: rgba(247,241,230,0.6);
+}
+.stamp.glow {
+  border-color: #1A151C;
+  background: rgba(140,182,232,0.55);
+}
+
+.qr-box {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  width: 44px; height: 44px;
+}
+.qr-box span {
+  background: rgba(26,21,28,0.85);
+}
+.qr-box span.off { background: transparent; }
+
+.spark-card {
+  position: absolute;
+  bottom: 7%;
+  left: 6%;
+  width: 44%;
+  background: #1A151C;
+  color: #E8D5C4;
+  border-radius: 12px;
+  padding: 14px 16px;
+  box-shadow: 0 18px 36px -22px rgba(26,21,28,0.55);
+  z-index: 4;
+  animation:
+    spark-enter 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both,
+    spark-float 9s ease-in-out 1.5s infinite;
+}
+@keyframes spark-enter {
+  0%   { opacity: 0; transform: translateY(80px) rotate(-3deg); }
+  100% { opacity: 1; transform: translateY(0) rotate(0deg); }
+}
+@keyframes spark-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-3px) rotate(0deg); }
+}
+.spark-card svg path.spark-area { fill: rgba(140,182,232,0.18); }
+.spark-card svg path.spark-line { fill: none; stroke: #8CB6E8; stroke-width: 1.4; }
+.spark-card svg circle { fill: #8CB6E8; }
+
+.spark-card .sc-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #8CB6E8;
+  box-shadow: 0 0 8px rgba(140,182,232,0.7);
+  animation: hd-pulse 2.4s ease-in-out infinite;
+}
+@keyframes hd-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.75); }
+}
+
+/* Ticker */
+.tx-ticker {
+  display: flex;
+  gap: 2.5rem;
+  animation: tx-ticker 38s linear infinite;
+  white-space: nowrap;
+}
+@keyframes tx-ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Pillar card accents */
+.pill-card { position: relative; overflow: hidden; }
+.pill-card .pill-art { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+.pill-card:hover .pill-art { transform: scale(1.02); }
+.pill-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 0%), rgba(140,182,232,0.18), transparent 50%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.pill-card:hover::before { opacity: 1; }
+.pill-card .accent-bar {
+  position: absolute;
+  top: 0; left: 0;
+  width: 32px; height: 3px;
+  background: var(--accent, #1A151C);
+}
+
+/* Settlement comparison — discrete blocks */
+.blk-row { display: flex; align-items: center; gap: 3px; flex-wrap: wrap; }
+.blk {
+  width: 10px; height: 14px;
+  border-radius: 2px;
+  background: rgba(26,21,28,0.10);
+  border: 1px solid rgba(26,21,28,0.15);
+  flex-shrink: 0;
+}
+.blk.filled { background: #1A151C; border-color: #1A151C; }
+.blk.glow {
+  background: #8CB6E8;
+  border-color: #1A151C;
+  box-shadow: 0 0 0 1px rgba(140,182,232,0.4);
+  animation: blk-flash 2.6s ease-in-out infinite;
+}
+@keyframes blk-flash {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(140,182,232,0.4); }
+  50% { box-shadow: 0 0 0 4px rgba(140,182,232,0.5); }
+}
+.blk.skip { width: 4px; background: rgba(26,21,28,0.08); border-color: transparent; }
+.blk.dot {
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: rgba(26,21,28,0.35);
+  border: none;
+  margin: 0 1px;
+}
+
+/* Parachain grid wiggle */
+.pg-cell {
+  animation: pg-pulse 4s ease-in-out infinite;
+}
+.pg-cell.featured { animation-name: pg-spike; animation-duration: 3s; }
+@keyframes pg-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.55; }
+}
+@keyframes pg-spike {
+  0%, 100% { transform: scale(1); fill: rgba(140,182,232,0.5); }
+  50% { transform: scale(1.1); fill: rgba(140,182,232,1); }
+}
+
+/* AIUSD stamp section */
+.aiusd-stamp {
+  position: relative;
+  border: 1px solid rgba(232,213,196,0.18);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(140,182,232,0.08), transparent 40%),
+    radial-gradient(circle at 100% 100%, rgba(232,213,196,0.05), transparent 40%);
+}
+.aiusd-stamp::before {
+  content: '';
+  position: absolute; inset: 14px;
+  border: 1px dashed rgba(232,213,196,0.18);
+  border-radius: 12px;
+  pointer-events: none;
+}
+.aiusd-letterform {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  font-size: clamp(6rem, 18vw, 16rem);
+  line-height: 0.9;
+  color: #E8D5C4;
+  -webkit-text-stroke: 1px rgba(232,213,196,0.35);
+}
+.aiusd-letterform .iu {
+  color: transparent;
+  -webkit-text-stroke: 1.6px #E8D5C4;
+}
+.aiusd-meta {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  color: rgba(232,213,196,0.55);
+}
+.aiusd-meta strong {
+  color: #E8D5C4;
+  font-weight: 400;
+}
+
+/* Architecture stack flow */
+.stack-pulse {
+  position: absolute;
+  left: -1px;
+  width: 3px;
+  height: 50px;
+  background: linear-gradient(to bottom, transparent, #8CB6E8, transparent);
+  border-radius: 2px;
+  animation: stack-pulse 3.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+@keyframes stack-pulse {
+  0% { top: -50px; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* Roadmap timeline */
+.rm-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(26,21,28,0.4);
+  background: #E8D5C4;
+}
+.rm-dot.done { background: #1A151C; border-color: #1A151C; }
+.rm-dot.current {
+  background: #8CB6E8;
+  border-color: #1A151C;
+  box-shadow: 0 0 0 4px rgba(140,182,232,0.25);
+}
+
+.numerals { font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  .receipt-bg-a, .receipt-bg-b, .receipt-main, .spark-card, .tx-ticker,
+  .stack-pulse, .sb-fast, .sb-slow, .pg-cell, .sc-dot {
+    animation: none;
+  }
+}
+
+</style>
+<div class="relative min-h-screen bg-peach text-core"><div aria-hidden="true" class="bg-noise"></div><header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-6 md:px-10 py-6 transition-all duration-300"><a href="#/" class="font-display text-2xl tracking-[0.2em] font-semibold mix-blend-multiply text-core hover:text-glow transition-colors">Atara</a><nav class="flex items-center gap-6 md:gap-10"><div class="relative group"><button type="button" class="inline-flex items-center gap-1.5 text-[0.9rem] tracking-wide text-core hover:text-glow transition-colors font-medium">Ecosystem<span aria-hidden="true" class="text-[0.6rem]">▾</span></button><div class="absolute left-1/2 top-full -translate-x-1/2 pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150"><div class="w-[320px] rounded-2xl border border-core/15 backdrop-blur-md shadow-[0_24px_50px_-20px_rgba(60,30,20,0.4),0_6px_18px_-10px_rgba(60,30,20,0.22)] overflow-hidden" style="background-color: rgba(232, 213, 196, 0.92);"><div class="p-2"><a href="https://setu-web-five.vercel.app/" target="_blank" rel="noopener noreferrer" class="flex items-start gap-3 px-3 py-2.5 rounded-xl hover:bg-core/[0.06] transition-colors"><span class="flex-1"><span class="block text-[0.85rem] text-core font-medium tracking-tight">Setu</span><span class="block text-[0.68rem] text-core/60 mt-0.5 font-mono">AI Agent Ledger</span></span></a><a href="#/" class="flex items-start gap-3 px-3 py-2.5 rounded-xl hover:bg-core/[0.06] transition-colors"><span class="flex-1"><span class="block text-[0.85rem] text-core font-medium tracking-tight">Agent Consensus</span><span class="block text-[0.68rem] text-core/60 mt-0.5 font-mono">Coordination layer</span></span></a><a href="#/lokachain" class="flex items-start gap-3 px-3 py-2.5 rounded-xl hover:bg-core/[0.06] transition-colors"><span class="flex-1"><span class="block text-[0.85rem] text-core font-medium tracking-tight">Loka Chain</span><span class="block text-[0.68rem] text-core/60 mt-0.5 font-mono">Stablecoin chain</span></span></a></div></div></div></div><a href="https://loka-network.github.io/loka-payment-book/" target="_blank" rel="noreferrer" class="text-[0.9rem] tracking-wide text-core hover:text-glow transition-colors font-medium">Docs</a><a href="#/dashboard" class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-core/40 text-core font-medium text-[0.9rem] tracking-wide hover:border-glow hover:text-glow transition-colors">Dashboard</a><a href="#/" class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-white font-medium text-[0.9rem] tracking-wide shadow-sm hover:opacity-90 transition-opacity" style="background-color: rgb(26, 21, 28);">Quick Start<span aria-hidden="true">→</span></a></nav></header><main class="relative z-10 pt-28 pb-24 px-6 md:px-12 lg:px-20 xl:px-28">
+
+  <!-- ============ HERO ============ -->
+  <section class="pb-20 relative">
+    <div aria-hidden="true" class="ascii-field" id="ascii-hero"></div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-center">
+      <!-- Left: headline + ctas -->
+      <div>
+        <h1 class="font-display font-semibold leading-[0.92] tracking-[-0.03em] mb-8">
+          <span class="block text-[3rem] md:text-[4.4rem] lg:text-[5.2rem] text-core">A payment chain</span>
+          <span class="block text-[3rem] md:text-[4.4rem] lg:text-[5.2rem] loka-outline">for AI agents.</span>
+        </h1>
+        <p class="text-base md:text-lg leading-relaxed text-main max-w-xl mb-10">
+          Parallel EVM L1 with native AIUSD. Sub-second finality, 300K tps, and every Solidity contract drops in unchanged.
+        </p>
+        <div class="flex flex-wrap items-center gap-4 mb-12">
+          <a href="https://loka-network.github.io/loka-payment-book/" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium text-sm tracking-wide shadow-md hover:opacity-90 transition-opacity" style="background-color: rgb(26, 21, 28);">Read the docs <span aria-hidden="true">→</span></a>
+          <a href="https://github.com/loka-network/loka-chain" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-core/40 text-core font-medium text-sm tracking-wide hover:border-glow hover:text-glow transition-colors">GitHub <span aria-hidden="true">↗</span></a>
+        </div>
+
+        <!-- inline mini stats row -->
+        <div class="grid grid-cols-4 gap-x-4 gap-y-2 pt-6 border-t border-core/15 max-w-xl">
+          <div class="lk-stat" style="animation-delay: 100ms;">
+            <div class="font-display font-semibold text-core leading-none tracking-tight text-3xl md:text-[2.2rem]">300K</div>
+            <div class="font-mono text-[0.55rem] tracking-widest text-core/55 mt-2">tps</div>
+          </div>
+          <div class="lk-stat" style="animation-delay: 180ms;">
+            <div class="font-display font-semibold text-core leading-none tracking-tight text-3xl md:text-[2.2rem]">&lt;1s</div>
+            <div class="font-mono text-[0.55rem] tracking-widest text-core/55 mt-2">finality</div>
+          </div>
+          <div class="lk-stat" style="animation-delay: 260ms;">
+            <div class="font-display font-semibold text-core leading-none tracking-tight text-3xl md:text-[2.2rem]">$1.00</div>
+            <div class="font-mono text-[0.55rem] tracking-widest text-core/55 mt-2">AIUSD</div>
+          </div>
+          <div class="lk-stat" style="animation-delay: 340ms;">
+            <div class="font-display font-semibold text-core leading-none tracking-tight text-3xl md:text-[2.2rem]">EVM</div>
+            <div class="font-mono text-[0.55rem] tracking-widest text-core/55 mt-2">drop-in</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: receipt stack -->
+      <div class="hero-stage select-none">
+        <span class="hs-tick" style="top: 50%; left: 14px;"></span>
+        <span class="hs-tick" style="top: 50%; right: 14px;"></span>
+        <span class="hs-tick" style="top: 14px; left: 50%;"></span>
+        <span class="hs-tick" style="bottom: 14px; left: 50%;"></span>
+
+        <!-- back receipts -->
+        <div class="receipt receipt-bg-a">
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-mono text-[0.5rem] tracking-widest text-core/50">AIUSD · INVOICE</span>
+            <span class="font-mono text-[0.5rem] tracking-widest text-core/35">#2,394,156</span>
+          </div>
+          <div class="font-display text-2xl font-semibold text-core numerals">$218.00</div>
+          <div class="font-mono text-[0.55rem] text-core/45 mt-2">api invoice · agent ▸ wallet</div>
+        </div>
+
+        <div class="receipt receipt-bg-b">
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-mono text-[0.5rem] tracking-widest text-core/50">AIUSD · MICRO</span>
+            <span class="font-mono text-[0.5rem] tracking-widest text-core/35">#2,394,157</span>
+          </div>
+          <div class="font-display text-2xl font-semibold text-core numerals">$0.012</div>
+          <div class="font-mono text-[0.55rem] text-core/45 mt-2">inference · gas-sponsored</div>
+        </div>
+
+        <!-- main receipt -->
+        <div class="receipt receipt-main">
+          <span class="receipt-perf-top"></span>
+          <span class="receipt-perf-bot"></span>
+          <span class="stamp glow">FINAL · 1 BLK</span>
+
+          <div class="flex items-center justify-between mb-5 pr-20">
+            <span class="font-mono text-[0.55rem] tracking-widest text-core/55">AIUSD · TRANSFER</span>
+            <span class="font-mono text-[0.55rem] tracking-widest text-core/45 numerals">#2,394,158</span>
+          </div>
+
+          <div class="flex items-baseline gap-3 mb-1">
+            <span class="font-display text-[2.6rem] md:text-[3rem] lg:text-[3.2rem] font-semibold text-core leading-none tracking-tight numerals">$12.40</span>
+            <span class="font-mono text-[0.6rem] tracking-widest text-core/55">AIUSD</span>
+          </div>
+          <div class="font-mono text-[0.6rem] text-core/40 mb-5">≈ $12.40 USD · peg 0.00 bps</div>
+
+          <div class="space-y-2 mb-5">
+            <div class="flex items-center justify-between text-[0.7rem]">
+              <span class="font-mono text-core/45">FROM</span>
+              <span class="font-mono text-core/85">0xa3f1·9c2d</span>
+            </div>
+            <div class="flex items-center justify-between text-[0.7rem]">
+              <span class="font-mono text-core/45">TO</span>
+              <span class="font-mono text-core/85">0xbe44·11a7</span>
+            </div>
+            <div class="flex items-center justify-between text-[0.7rem]">
+              <span class="font-mono text-core/45">MEMO</span>
+              <span class="font-mono text-core/85">agent ▸ wallet</span>
+            </div>
+          </div>
+
+          <div class="flex items-end justify-between gap-4 pt-4 border-t border-dashed border-core/20">
+            <div>
+              <div class="font-mono text-[0.55rem] tracking-widest text-core/45 mb-1">FEE · FINALITY</div>
+              <div class="flex items-baseline gap-3">
+                <span class="font-display text-[0.95rem] font-semibold text-core numerals">$0.00021</span>
+                <span class="font-mono text-[0.6rem] text-core/45 numerals">847 ms</span>
+              </div>
+            </div>
+            <!-- mini "qr" hash -->
+            <div class="qr-box" aria-hidden="true">
+              <span></span><span></span><span></span><span class="off"></span><span></span><span></span><span></span><span></span><span class="off"></span><span></span><span></span><span class="off"></span><span class="off"></span><span></span><span></span><span class="off"></span><span></span><span class="off"></span><span></span><span class="off"></span><span></span><span class="off"></span><span></span><span></span><span></span><span></span><span class="off"></span><span class="off"></span><span></span><span class="off"></span><span class="off"></span><span></span><span class="off"></span><span></span><span></span><span></span><span class="off"></span><span></span><span></span><span></span><span class="off"></span><span></span><span></span><span></span><span class="off"></span><span class="off"></span><span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- spark card -->
+        <div class="spark-card">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-mono text-[0.5rem] tracking-widest" style="color: rgba(232,213,196,0.55);">TPS · 24H</span>
+            <span class="sc-dot"></span>
+          </div>
+          <div class="flex items-baseline gap-2 mb-2">
+            <span class="font-display text-xl font-semibold numerals" style="color: #E8D5C4;">294,612</span>
+            <span class="font-mono text-[0.55rem]" style="color: rgba(140,182,232,0.85);">▲ 4.2%</span>
+          </div>
+          <svg viewBox="0 0 120 30" class="w-full h-6" preserveAspectRatio="none">
+            <path class="spark-area" d="M0,22 L8,20 L16,21 L24,18 L32,19 L40,14 L48,16 L56,10 L64,12 L72,7 L80,9 L88,5 L96,8 L104,4 L112,6 L120,3 L120,30 L0,30 Z"></path>
+            <path class="spark-line" d="M0,22 L8,20 L16,21 L24,18 L32,19 L40,14 L48,16 L56,10 L64,12 L72,7 L80,9 L88,5 L96,8 L104,4 L112,6 L120,3"></path>
+            <circle cx="120" cy="3" r="1.6"></circle>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live transaction ticker -->
+    <div class="mt-16 border border-core/15 rounded-xl bg-white/40 overflow-hidden">
+      <div class="flex items-center justify-between px-5 py-3 border-b border-core/10 bg-white/40">
+        <div class="flex items-center gap-3">
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-glow animate-pulse"></span>
+          <span class="font-mono text-[0.62rem] tracking-widest text-core/70">live mempool · testnet</span>
+        </div>
+        <span class="font-mono text-[0.6rem] tracking-widest text-core/40">streaming</span>
+      </div>
+      <div class="marquee py-3">
+        <div class="tx-ticker font-mono text-[0.72rem] text-core/80 numerals">
+          <span class="inline-flex items-center gap-3"><span class="text-core/45">0xa3f1…9c2d</span><span class="text-core/30">→</span><span class="text-core/45">0xbe44…11a7</span><span class="text-core font-semibold">12.40 AIUSD</span><span class="text-core/40">· agent ▸ wallet</span></span><span class="text-core/15">|</span><span class="inline-flex items-center gap-3"><span class="text-core/45">0x77b8…2eef</span><span class="text-core/30">→</span><span class="text-core/45">0xc011…ff90</span><span class="text-core font-semibold">0.0042 AIUSD</span><span class="text-core/40">· gas-sponsored swap</span></span><span class="text-core/15">|</span><span class="inline-flex items-center gap-3"><span class="text-core/45">0xde90…44b2</span><span class="text-core/30">→</span><span class="text-core/45">0x4421…8a01</span><span class="text-core font-semibold">218.00 AIUSD</span><span class="text-core/40">· api invoice</span></span><span class="text-core/15">|</span><span class="inline-flex items-center gap-3"><span class="text-core/45">0x012a…b88c</span><span class="text-core/30">→</span><span class="text-core/45">0xee71…0f3d</span><span class="text-core font-semibold">0.99 AIUSD</span><span class="text-core/40">· inference call</span></span><span class="text-core/15">|</span><span class="inline-flex items-center gap-3"><span class="text-core/45">0xfa61…3a02</span><span class="text-core/30">→</span><span class="text-core/45">0x99bd…71cc</span><span class="text-core font-semibold">5,200.00 AIUSD</span><span class="text-core/40">· treasury sweep</span></span><span class="text-core/15">|</span><span class="inline-flex items-center gap-3"><span class="text-core/45">0x18ec…6bff</span><span class="text-core/30">→</span><span class="text-core/45">0x2247…a0e1</span><span class="text-core font-semibold">0.012 AIUSD</span><span class="text-core/40">· micro-task</span></span><span class="text-core/15">|</span><span class="inline-flex items-center gap-3"><span class="text-core/45">0x6c11…7d22</span><span class="text-core/30">→</span><span class="text-core/45">0x9081…5b3a</span><span class="text-core font-semibold">64.80 AIUSD</span><span class="text-core/40">· data licence</span></span><span class="text-core/15">|</span><span class="inline-flex items-center gap-3"><span class="text-core/45">0xc40e…1290</span><span class="text-core/30">→</span><span class="text-core/45">0x05a8…d6f4</span><span class="text-core font-semibold">1.00 AIUSD</span><span class="text-core/40">· tip</span></span><span class="text-core/15">|</span><span class="inline-flex items-center gap-3"><span class="text-core/45">0xa3f1…9c2d</span><span class="text-core/30">→</span><span class="text-core/45">0xbe44…11a7</span><span class="text-core font-semibold">12.40 AIUSD</span><span class="text-core/40">· agent ▸ wallet</span></span><span class="text-core/15">|</span><span class="inline-flex items-center gap-3"><span class="text-core/45">0x77b8…2eef</span><span class="text-core/30">→</span><span class="text-core/45">0xc011…ff90</span><span class="text-core font-semibold">0.0042 AIUSD</span><span class="text-core/40">· gas-sponsored swap</span></span><span class="text-core/15">|</span><span class="inline-flex items-center gap-3"><span class="text-core/45">0xde90…44b2</span><span class="text-core/30">→</span><span class="text-core/45">0x4421…8a01</span><span class="text-core font-semibold">218.00 AIUSD</span><span class="text-core/40">· api invoice</span></span><span class="text-core/15">|</span><span class="inline-flex items-center gap-3"><span class="text-core/45">0x012a…b88c</span><span class="text-core/30">→</span><span class="text-core/45">0xee71…0f3d</span><span class="text-core font-semibold">0.99 AIUSD</span><span class="text-core/40">· inference call</span></span><span class="text-core/15">|</span><span class="inline-flex items-center gap-3"><span class="text-core/45">0xfa61…3a02</span><span class="text-core/30">→</span><span class="text-core/45">0x99bd…71cc</span><span class="text-core font-semibold">5,200.00 AIUSD</span><span class="text-core/40">· treasury sweep</span></span><span class="text-core/15">|</span><span class="inline-flex items-center gap-3"><span class="text-core/45">0x18ec…6bff</span><span class="text-core/30">→</span><span class="text-core/45">0x2247…a0e1</span><span class="text-core font-semibold">0.012 AIUSD</span><span class="text-core/40">· micro-task</span></span><span class="text-core/15">|</span><span class="inline-flex items-center gap-3"><span class="text-core/45">0x6c11…7d22</span><span class="text-core/30">→</span><span class="text-core/45">0x9081…5b3a</span><span class="text-core font-semibold">64.80 AIUSD</span><span class="text-core/40">· data licence</span></span><span class="text-core/15">|</span><span class="inline-flex items-center gap-3"><span class="text-core/45">0xc40e…1290</span><span class="text-core/30">→</span><span class="text-core/45">0x05a8…d6f4</span><span class="text-core font-semibold">1.00 AIUSD</span><span class="text-core/40">· tip</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ I. Why Loka Chain — bento pillars ============ -->
+  <section class="py-24 border-t border-core/20">
+    <div class="mb-6">
+      <div class="sec-label text-[0.6rem] tracking-widest text-muted" style="--sec-accent: #1A151C;">I. Why Loka Chain</div>
+    </div>
+    <h2 class="font-display text-3xl md:text-5xl font-semibold text-core mb-4 max-w-3xl leading-[1.05] tracking-tight">
+      Money that moves at <span class="loka-outline">machine speed.</span>
+    </h2>
+    <p class="text-[0.92rem] leading-relaxed tracking-wide text-main opacity-70 mb-14 max-w-2xl">
+      Built for the kinds of payments AI agents actually make — fast, cheap, programmatic, predictable.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+      <!-- 01 Sub-second settlement -->
+      <article class="pill-card lk-card relative overflow-hidden rounded-2xl border border-core/15 bg-white/60 hover:border-core/40 transition-colors p-7 md:p-8" style="--accent: #1A151C;">
+        <span class="accent-bar"></span>
+        <div class="flex items-center justify-between mb-6">
+          <span class="font-mono text-[0.6rem] tracking-widest text-core/55">· 01 / settlement</span>
+          <span class="font-mono text-[0.6rem] tracking-widest text-core/40">~847 ms</span>
+        </div>
+        <h3 class="font-display text-xl md:text-[1.5rem] font-semibold text-core leading-snug mb-3 tracking-tight">Sub-second settlement</h3>
+        <p class="text-[0.92rem] leading-relaxed text-main mb-7">Deterministic BFT finality — one block is final, no probabilistic waits. Agents settle in under a second, not twelve confirmations.</p>
+        <!-- discrete block comparison: 1 vs 12 vs 60 confirmations -->
+        <div class="pill-art mt-2 space-y-3.5">
+          <div>
+            <div class="flex items-baseline justify-between mb-1.5">
+              <span class="font-mono text-[0.6rem] tracking-widest text-core/70">LOKA</span>
+              <span class="font-mono text-[0.6rem] text-core/55 numerals">1 block · 0.8s</span>
+            </div>
+            <div class="blk-row">
+              <span class="blk glow"></span>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-baseline justify-between mb-1.5">
+              <span class="font-mono text-[0.6rem] tracking-widest text-core/70">ETH L1</span>
+              <span class="font-mono text-[0.6rem] text-core/55 numerals">12 blocks · ~3 min</span>
+            </div>
+            <div class="blk-row">
+              <span class="blk filled"></span><span class="blk filled"></span><span class="blk filled"></span><span class="blk filled"></span><span class="blk filled"></span><span class="blk filled"></span><span class="blk filled"></span><span class="blk filled"></span><span class="blk filled"></span><span class="blk filled"></span><span class="blk filled"></span><span class="blk filled"></span>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-baseline justify-between mb-1.5">
+              <span class="font-mono text-[0.6rem] tracking-widest text-core/70">BTC</span>
+              <span class="font-mono text-[0.6rem] text-core/55 numerals">~6 blocks · ~60 min</span>
+            </div>
+            <div class="blk-row">
+              <span class="blk filled"></span><span class="blk filled"></span><span class="blk filled"></span><span class="blk filled"></span><span class="blk filled"></span><span class="blk filled"></span>
+              <span class="blk dot"></span><span class="blk dot"></span><span class="blk dot"></span>
+              <span class="font-mono text-[0.6rem] text-core/35 ml-1">finality wait</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 02 AIUSD by default -->
+      <article class="pill-card lk-card relative overflow-hidden rounded-2xl border border-core/15 bg-white/60 hover:border-core/40 transition-colors p-7 md:p-8" style="--accent: #8CB6E8;">
+        <span class="accent-bar" style="background: #8CB6E8;"></span>
+        <div class="flex items-center justify-between mb-6">
+          <span class="font-mono text-[0.6rem] tracking-widest text-core/55">· 02 / dollar</span>
+          <span class="font-mono text-[0.6rem] tracking-widest text-core/40">native · $1.00</span>
+        </div>
+        <h3 class="font-display text-xl md:text-[1.5rem] font-semibold text-core leading-snug mb-3 tracking-tight">AIUSD by default</h3>
+        <p class="text-[0.92rem] leading-relaxed text-main mb-7">A dollar issued where agents actually compute. No bridges, no wrapped USDC, no relayer trust.</p>
+        <!-- coin + crossed-out alternates -->
+        <div class="pill-art flex items-center gap-5">
+          <div class="coin" style="width: 104px; height: 104px;">
+            <div class="coin-face">
+              <svg class="coin-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <text x="100" y="113" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="40" letter-spacing="-1" fill="#E8D5C4">AIUSD</text>
+              </svg>
+              <div class="coin-shine"></div>
+            </div>
+          </div>
+          <div class="flex-1 space-y-1.5">
+            <div class="flex items-center gap-2 font-mono text-[0.65rem] text-core/35 line-through">
+              <span class="w-2 h-2 border border-current"></span>wrapped USDC
+            </div>
+            <div class="flex items-center gap-2 font-mono text-[0.65rem] text-core/35 line-through">
+              <span class="w-2 h-2 border border-current"></span>bridged stablecoin
+            </div>
+            <div class="flex items-center gap-2 font-mono text-[0.65rem] text-core/35 line-through">
+              <span class="w-2 h-2 border border-current"></span>relayer IOU
+            </div>
+            <div class="flex items-center gap-2 font-mono text-[0.65rem] text-core font-semibold pt-1">
+              <span class="w-2 h-2 bg-glow"></span>native AIUSD
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 03 EVM drop-in -->
+      <article class="pill-card lk-card relative overflow-hidden rounded-2xl border border-core/15 bg-white/60 hover:border-core/40 transition-colors p-7 md:p-8" style="--accent: #1A151C;">
+        <span class="accent-bar"></span>
+        <div class="flex items-center justify-between mb-6">
+          <span class="font-mono text-[0.6rem] tracking-widest text-core/55">· 03 / tooling</span>
+          <span class="font-mono text-[0.6rem] tracking-widest text-core/40">zero rewrites</span>
+        </div>
+        <h3 class="font-display text-xl md:text-[1.5rem] font-semibold text-core leading-snug mb-3 tracking-tight">EVM drop-in</h3>
+        <p class="text-[0.92rem] leading-relaxed text-main mb-7">Solidity, Hardhat, Foundry, MetaMask, The Graph — everything works unchanged. No rewrite, no new tooling moat.</p>
+        <div class="pill-art grid grid-cols-4 gap-1.5">
+          <span class="px-2 py-1.5 rounded bg-white border border-core/15 font-mono text-[0.6rem] text-core/75 text-center tracking-tight">Solidity</span><span class="px-2 py-1.5 rounded bg-white border border-core/15 font-mono text-[0.6rem] text-core/75 text-center tracking-tight">Hardhat</span><span class="px-2 py-1.5 rounded bg-white border border-core/15 font-mono text-[0.6rem] text-core/75 text-center tracking-tight">Foundry</span><span class="px-2 py-1.5 rounded bg-white border border-core/15 font-mono text-[0.6rem] text-core/75 text-center tracking-tight">MetaMask</span><span class="px-2 py-1.5 rounded bg-white border border-core/15 font-mono text-[0.6rem] text-core/75 text-center tracking-tight">The Graph</span><span class="px-2 py-1.5 rounded bg-white border border-core/15 font-mono text-[0.6rem] text-core/75 text-center tracking-tight">Viem</span><span class="px-2 py-1.5 rounded bg-white border border-core/15 font-mono text-[0.6rem] text-core/75 text-center tracking-tight">Ethers</span><span class="px-2 py-1.5 rounded bg-white border border-core/15 font-mono text-[0.6rem] text-core/75 text-center tracking-tight">Remix</span>
+        </div>
+      </article>
+
+      <!-- 04 Parachain isolation -->
+      <article class="pill-card lk-card relative overflow-hidden rounded-2xl border border-core/15 bg-white/60 hover:border-core/40 transition-colors p-7 md:p-8" style="--accent: #8CB6E8;">
+        <span class="accent-bar" style="background: #8CB6E8;"></span>
+        <div class="flex items-center justify-between mb-6">
+          <span class="font-mono text-[0.6rem] tracking-widest text-core/55">· 04 / isolation</span>
+          <span class="font-mono text-[0.6rem] tracking-widest text-core/40">per-app gas market</span>
+        </div>
+        <h3 class="font-display text-xl md:text-[1.5rem] font-semibold text-core leading-snug mb-3 tracking-tight">Parachain isolation</h3>
+        <p class="text-[0.92rem] leading-relaxed text-main mb-7">Per-app gas market, governance, VM tuning. A viral game on its own parachain does not raise your payment fees on yours.</p>
+        <!-- isolated cells grid -->
+        <div class="pill-art">
+          <svg viewBox="0 0 200 60" class="w-full h-auto">
+            <rect class="pg-cell " x="2" y="2" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 0.00s; transform-origin: 10px 10px"></rect><rect class="pg-cell " x="22" y="2" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 0.08s; transform-origin: 30px 10px"></rect><rect class="pg-cell " x="42" y="2" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 0.16s; transform-origin: 50px 10px"></rect><rect class="pg-cell " x="62" y="2" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 0.24s; transform-origin: 70px 10px"></rect><rect class="pg-cell " x="82" y="2" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 0.32s; transform-origin: 90px 10px"></rect><rect class="pg-cell " x="102" y="2" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 0.40s; transform-origin: 110px 10px"></rect><rect class="pg-cell " x="122" y="2" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 0.48s; transform-origin: 130px 10px"></rect><rect class="pg-cell " x="142" y="2" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 0.56s; transform-origin: 150px 10px"></rect><rect class="pg-cell " x="162" y="2" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 0.64s; transform-origin: 170px 10px"></rect><rect class="pg-cell " x="182" y="2" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 0.72s; transform-origin: 190px 10px"></rect><rect class="pg-cell " x="2" y="22" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 0.80s; transform-origin: 10px 30px"></rect><rect class="pg-cell " x="22" y="22" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 0.88s; transform-origin: 30px 30px"></rect><rect class="pg-cell " x="42" y="22" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 0.96s; transform-origin: 50px 30px"></rect><rect class="pg-cell " x="62" y="22" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 1.04s; transform-origin: 70px 30px"></rect><rect class="pg-cell featured" x="82" y="22" width="16" height="16" rx="2" fill="rgba(140,182,232,1)" style="animation-delay: 1.12s; transform-origin: 90px 30px"></rect><rect class="pg-cell " x="102" y="22" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 1.20s; transform-origin: 110px 30px"></rect><rect class="pg-cell " x="122" y="22" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 1.28s; transform-origin: 130px 30px"></rect><rect class="pg-cell " x="142" y="22" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 1.36s; transform-origin: 150px 30px"></rect><rect class="pg-cell " x="162" y="22" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 1.44s; transform-origin: 170px 30px"></rect><rect class="pg-cell " x="182" y="22" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 1.52s; transform-origin: 190px 30px"></rect><rect class="pg-cell " x="2" y="42" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 1.60s; transform-origin: 10px 50px"></rect><rect class="pg-cell " x="22" y="42" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 1.68s; transform-origin: 30px 50px"></rect><rect class="pg-cell " x="42" y="42" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 1.76s; transform-origin: 50px 50px"></rect><rect class="pg-cell " x="62" y="42" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 1.84s; transform-origin: 70px 50px"></rect><rect class="pg-cell " x="82" y="42" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 1.92s; transform-origin: 90px 50px"></rect><rect class="pg-cell " x="102" y="42" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 2.00s; transform-origin: 110px 50px"></rect><rect class="pg-cell " x="122" y="42" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 2.08s; transform-origin: 130px 50px"></rect><rect class="pg-cell " x="142" y="42" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 2.16s; transform-origin: 150px 50px"></rect><rect class="pg-cell " x="162" y="42" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 2.24s; transform-origin: 170px 50px"></rect><rect class="pg-cell " x="182" y="42" width="16" height="16" rx="2" fill="rgba(26,21,28,0.18)" style="animation-delay: 2.32s; transform-origin: 190px 50px"></rect>
+          </svg>
+          <div class="mt-3 flex items-center gap-3 font-mono text-[0.6rem] text-core/55">
+            <span class="inline-block w-2 h-2 rounded-sm bg-glow"></span>parachain spike contained
+            <span class="text-core/25 ml-auto">29 quiet · 1 active</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ II. Architecture ============ -->
+  <section class="py-24 border-t border-core/20">
+    <div class="sec-label text-[0.6rem] tracking-widest text-muted mb-6" style="--sec-accent: #8CB6E8;">II. Architecture</div>
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-12 items-start">
+      <div class="lg:pr-8">
+        <h2 class="font-display text-3xl md:text-4xl font-semibold text-core mb-5 leading-[1.05] tracking-tight">
+          A substrate everyone shares.<br>
+          <span class="loka-outline">A parachain you don't.</span>
+        </h2>
+        <p class="text-[0.95rem] leading-relaxed text-main/85 mb-4">Every parachain inherits NeoBFT's deterministic finality and Block-STM's parallel EVM. But each one owns its gas market, its governance, and (optionally) its VM.</p>
+        <p class="text-[0.95rem] leading-relaxed text-main/85 mb-8">Adding a parachain does not cost throughput on the others — it adds throughput overall. Cross-parachain transfers settle through an IBC-style atomic relay. No bridge custodian.</p>
+
+        <div class="pt-6 border-t border-core/15 grid grid-cols-2 gap-x-4 gap-y-2">
+          <div class="flex items-center gap-2 font-mono text-[0.7rem] tracking-tight text-core/70"><span aria-hidden="true" class="text-core/40">✓</span>Solidity</div><div class="flex items-center gap-2 font-mono text-[0.7rem] tracking-tight text-core/70"><span aria-hidden="true" class="text-core/40">✓</span>JSON-RPC</div><div class="flex items-center gap-2 font-mono text-[0.7rem] tracking-tight text-core/70"><span aria-hidden="true" class="text-core/40">✓</span>MetaMask</div><div class="flex items-center gap-2 font-mono text-[0.7rem] tracking-tight text-core/70"><span aria-hidden="true" class="text-core/40">✓</span>Hardhat</div><div class="flex items-center gap-2 font-mono text-[0.7rem] tracking-tight text-core/70"><span aria-hidden="true" class="text-core/40">✓</span>Foundry</div><div class="flex items-center gap-2 font-mono text-[0.7rem] tracking-tight text-core/70"><span aria-hidden="true" class="text-core/40">✓</span>The Graph</div><div class="flex items-center gap-2 font-mono text-[0.7rem] tracking-tight text-core/70"><span aria-hidden="true" class="text-core/40">✓</span>ERC-20/721</div><div class="flex items-center gap-2 font-mono text-[0.7rem] tracking-tight text-core/70"><span aria-hidden="true" class="text-core/40">✓</span>ERC-4337</div>
+        </div>
+      </div>
+
+      <div class="relative">
+        <div class="absolute left-0 top-0 bottom-0 w-px bg-core/20" aria-hidden="true"></div>
+        <div class="stack-pulse" aria-hidden="true"></div>
+        <div class="flex flex-col gap-1.5 pl-6">
+
+          <div class="relative rounded-lg px-6 py-5 flex flex-wrap items-baseline gap-x-8 gap-y-2 border border-core/10" style="background-color: rgb(247, 241, 230);">
+            <span aria-hidden="true" class="absolute -left-[26px] top-1/2 -translate-y-1/2 font-mono text-[0.55rem] tracking-widest text-core/55">L4</span>
+            <span aria-hidden="true" class="absolute -left-[7px] top-1/2 -translate-y-1/2 w-3 h-px bg-core/30"></span>
+            <div class="min-w-[200px]">
+              <div class="font-display text-[1.05rem] font-semibold text-core tracking-tight leading-none">Application</div>
+              <div class="font-mono text-[0.6rem] tracking-widest text-core/55 mt-2">user-facing contracts</div>
+            </div>
+            <div class="flex flex-wrap gap-1.5 flex-1 justify-end">
+              <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-white/70 border border-core/10 text-[0.7rem] text-core font-mono tracking-tight">Solidity contracts</span>
+              <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-white/70 border border-core/10 text-[0.7rem] text-core font-mono tracking-tight">AIUSD</span>
+              <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-white/70 border border-core/10 text-[0.7rem] text-core font-mono tracking-tight">Loka DEX</span>
+            </div>
+          </div>
+
+          <div class="relative rounded-lg px-6 py-5 flex flex-wrap items-baseline gap-x-8 gap-y-2 border border-core/10" style="background-color: rgb(241, 230, 210);">
+            <span aria-hidden="true" class="absolute -left-[26px] top-1/2 -translate-y-1/2 font-mono text-[0.55rem] tracking-widest text-core/55">L3</span>
+            <span aria-hidden="true" class="absolute -left-[7px] top-1/2 -translate-y-1/2 w-3 h-px bg-core/30"></span>
+            <div class="min-w-[200px]">
+              <div class="font-display text-[1.05rem] font-semibold text-core tracking-tight leading-none">Parachains</div>
+              <div class="font-mono text-[0.6rem] tracking-widest text-core/55 mt-2">100K tps each · isolated gas, governance, VM</div>
+            </div>
+            <div class="flex flex-wrap gap-1.5 flex-1 justify-end">
+              <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-white/70 border border-core/10 text-[0.7rem] text-core font-mono tracking-tight">Payments</span>
+              <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-white/70 border border-core/10 text-[0.7rem] text-core font-mono tracking-tight">Trading</span>
+              <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-white/70 border border-core/10 text-[0.7rem] text-core font-mono tracking-tight">Gaming</span>
+              <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-white/70 border border-core/10 text-[0.7rem] text-core font-mono tracking-tight">…</span>
+            </div>
+          </div>
+
+          <div class="relative rounded-lg px-6 py-5 flex flex-wrap items-baseline gap-x-8 gap-y-2 border border-core/10" style="background-color: rgb(231, 216, 189);">
+            <span aria-hidden="true" class="absolute -left-[26px] top-1/2 -translate-y-1/2 font-mono text-[0.55rem] tracking-widest text-core/55">L2</span>
+            <span aria-hidden="true" class="absolute -left-[7px] top-1/2 -translate-y-1/2 w-3 h-px bg-core/30"></span>
+            <div class="min-w-[200px]">
+              <div class="font-display text-[1.05rem] font-semibold text-core tracking-tight leading-none">Chain-S settlement</div>
+              <div class="font-mono text-[0.6rem] tracking-widest text-core/55 mt-2">cross-parachain truth</div>
+            </div>
+            <div class="flex flex-wrap gap-1.5 flex-1 justify-end">
+              <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-white/70 border border-core/10 text-[0.7rem] text-core font-mono tracking-tight">State anchoring</span>
+              <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-white/70 border border-core/10 text-[0.7rem] text-core font-mono tracking-tight">IBC-style relay</span>
+            </div>
+          </div>
+
+          <div class="relative rounded-lg px-6 py-5 flex flex-wrap items-baseline gap-x-8 gap-y-2 border border-core/10" style="background-color: rgb(217, 198, 164);">
+            <span aria-hidden="true" class="absolute -left-[26px] top-1/2 -translate-y-1/2 font-mono text-[0.55rem] tracking-widest text-core/55">L1</span>
+            <span aria-hidden="true" class="absolute -left-[7px] top-1/2 -translate-y-1/2 w-3 h-px bg-core/30"></span>
+            <div class="min-w-[200px]">
+              <div class="font-display text-[1.05rem] font-semibold text-core tracking-tight leading-none">Consensus &amp; execution</div>
+              <div class="font-mono text-[0.6rem] tracking-widest text-core/55 mt-2">shared substrate · 300K tps · sub-second finality</div>
+            </div>
+            <div class="flex flex-wrap gap-1.5 flex-1 justify-end">
+              <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-white/70 border border-core/10 text-[0.7rem] text-core font-mono tracking-tight">NeoBFT</span>
+              <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-white/70 border border-core/10 text-[0.7rem] text-core font-mono tracking-tight">Block-STM parallel EVM</span>
+              <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-white/70 border border-core/10 text-[0.7rem] text-core font-mono tracking-tight">Optional TEE</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ III. AIUSD — DARK SECTION ============ -->
+  <section class="py-12 relative">
+    <div class="aiusd-stamp p-8 md:p-14 lg:p-16" style="background-color: #1A151C; color: #E8D5C4;">
+      <div class="flex items-center justify-between mb-12 flex-wrap gap-3">
+        <div class="sec-label font-mono text-[0.6rem] tracking-widest" style="--sec-accent: #E8D5C4; color: rgba(232,213,196,0.55);">III. AIUSD</div>
+        <div class="flex items-center gap-4 font-mono text-[0.6rem] tracking-widest" style="color: rgba(232,213,196,0.55);">
+          <span class="inline-flex items-center gap-2">
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-glow animate-pulse"></span>
+            <span>on-chain native · loka L1</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-12 items-center">
+        <!-- Stamp letterform + big coin -->
+        <div class="relative">
+          <div class="aiusd-letterform aiusd-split">
+            <span class="ai">AI</span><span class="usd">USD</span>
+          </div>
+          <p class="font-display text-xl md:text-2xl max-w-md leading-snug mt-8" style="color: rgba(232,213,196,0.85);">
+            A dollar issued where agents actually compute.
+          </p>
+        </div>
+
+        <!-- Live metadata block -->
+        <div class="space-y-5">
+          <div class="grid grid-cols-2 gap-px" style="background-color: rgba(232,213,196,0.12);">
+            <div class="p-5" style="background-color: #1A151C;">
+              <div class="aiusd-meta mb-2">peg</div>
+              <div class="font-display text-3xl font-semibold numerals" style="color: #E8D5C4;">$1.00<span class="text-base align-top opacity-50">00</span></div>
+              <div class="aiusd-meta mt-2">deviation · 0.00 bps</div>
+            </div>
+            <div class="p-5" style="background-color: #1A151C;">
+              <div class="aiusd-meta mb-2">circulating</div>
+              <div class="font-display text-3xl font-semibold numerals" style="color: #E8D5C4;">$39.8M</div>
+              <div class="aiusd-meta mt-2">▲ +2.1% / 24h</div>
+            </div>
+            <div class="p-5" style="background-color: #1A151C;">
+              <div class="aiusd-meta mb-2">reserves</div>
+              <div class="font-display text-3xl font-semibold numerals" style="color: #E8D5C4;">$42.1M</div>
+              <div class="aiusd-meta mt-2">on-chain · block 2,394,158</div>
+            </div>
+            <div class="p-5" style="background-color: #1A151C;">
+              <div class="aiusd-meta mb-2">backing ratio</div>
+              <div class="font-display text-3xl font-semibold numerals" style="color: #8CB6E8;">105.8%</div>
+              <div class="aiusd-meta mt-2">over-collateralised</div>
+            </div>
+          </div>
+
+          <!-- reserves bar -->
+          <div>
+            <div class="flex items-center justify-between aiusd-meta mb-2">
+              <span>reserves composition</span>
+              <span>real-time</span>
+            </div>
+            <div class="h-2 rounded-full overflow-hidden flex" style="background-color: rgba(232,213,196,0.1);">
+              <div style="width: 62%; background-color: #E8D5C4;"></div>
+              <div style="width: 26%; background-color: #8CB6E8;"></div>
+              <div style="width: 12%; background-color: rgba(232,213,196,0.55);"></div>
+            </div>
+            <div class="flex flex-wrap gap-4 mt-3 aiusd-meta">
+              <span><span class="inline-block w-2 h-2 align-middle mr-1.5" style="background:#E8D5C4;"></span>T-bills 62%</span>
+              <span><span class="inline-block w-2 h-2 align-middle mr-1.5" style="background:#8CB6E8;"></span>USDC vault 26%</span>
+              <span><span class="inline-block w-2 h-2 align-middle mr-1.5" style="background:rgba(232,213,196,0.55);"></span>cash 12%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- bottom 3 columns -->
+      <div class="grid grid-cols-1 md:grid-cols-3 mt-16 pt-10" style="border-top: 1px solid rgba(232,213,196,0.18);">
+        <div class="py-2 md:pr-8" style="border-right: 1px solid rgba(232,213,196,0.12);">
+          <div class="aiusd-meta mb-3">· 01</div>
+          <h3 class="font-display text-lg font-semibold mb-3 tracking-tight" style="color: #E8D5C4;">On-chain native</h3>
+          <p class="text-[0.88rem] leading-relaxed" style="color: rgba(232,213,196,0.75);">Minted on Loka Chain itself. Not bridged, not wrapped, not a foreign IOU traveling over a relayer.</p>
+        </div>
+        <div class="py-2 md:px-8" style="border-right: 1px solid rgba(232,213,196,0.12);">
+          <div class="aiusd-meta mb-3">· 02</div>
+          <h3 class="font-display text-lg font-semibold mb-3 tracking-tight" style="color: #E8D5C4;">Real-time auditability</h3>
+          <p class="text-[0.88rem] leading-relaxed" style="color: rgba(232,213,196,0.75);">Issuance and reserves are on-chain at every block. Compliance lives inside the runtime, not in a third-party attestation.</p>
+        </div>
+        <div class="py-2 md:pl-8">
+          <div class="aiusd-meta mb-3">· 03</div>
+          <h3 class="font-display text-lg font-semibold mb-3 tracking-tight" style="color: #E8D5C4;">Programmable day one</h3>
+          <p class="text-[0.88rem] leading-relaxed" style="color: rgba(232,213,196,0.75);">Account abstraction, gas abstraction, sponsored transactions — pay in AIUSD without holding a separate gas token.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ IV. Status & next ============ -->
+  <section class="py-24 border-t border-core/20 mt-12">
+    <div class="sec-label text-[0.6rem] tracking-widest text-muted mb-6" style="--sec-accent: #C9B89E;">IV. Status &amp; next</div>
+    <div class="flex flex-wrap items-baseline gap-x-6 gap-y-3 mb-12">
+      <h2 class="font-display text-3xl md:text-4xl font-semibold text-core leading-[1.05] tracking-tight">Currently in beta.</h2>
+      <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-glow/30 border border-glow/40 text-[0.6rem] tracking-widest text-core font-mono">
+        <span class="w-1.5 h-1.5 rounded-full bg-glow"></span>mainnet on roadmap
+      </span>
+    </div>
+
+    <!-- Roadmap timeline -->
+    <div class="relative mb-16">
+      <div class="absolute top-1.5 left-0 right-0 h-px bg-core/15"></div>
+      <div class="absolute top-1.5 left-0 h-px bg-core" style="width: 28%;"></div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 relative">
+        <div>
+          <div class="rm-dot done -ml-0.5 mb-3"></div>
+          <div class="font-mono text-[0.6rem] tracking-widest text-core/55 mb-1">Q1 · NOW</div>
+          <div class="font-display text-[0.95rem] font-semibold text-core leading-tight">Public testnet</div>
+          <div class="font-mono text-[0.62rem] text-core/55 mt-1">300K tps · sub-second</div>
+        </div>
+        <div>
+          <div class="rm-dot current -ml-0.5 mb-3"></div>
+          <div class="font-mono text-[0.6rem] tracking-widest text-core/55 mb-1">Q2 · LIVE</div>
+          <div class="font-display text-[0.95rem] font-semibold text-core leading-tight">EIP-4337 AA · 1ms CLOB</div>
+          <div class="font-mono text-[0.62rem] text-core/55 mt-1">account abstraction UX</div>
+        </div>
+        <div>
+          <div class="rm-dot -ml-0.5 mb-3"></div>
+          <div class="font-mono text-[0.6rem] tracking-widest text-core/55 mb-1">Q3</div>
+          <div class="font-display text-[0.95rem] font-semibold text-core leading-tight">TEE validators</div>
+          <div class="font-mono text-[0.62rem] text-core/55 mt-1">SGX · Nitro opt-in</div>
+        </div>
+        <div>
+          <div class="rm-dot -ml-0.5 mb-3"></div>
+          <div class="font-mono text-[0.6rem] tracking-widest text-core/55 mb-1">Q4</div>
+          <div class="font-display text-[0.95rem] font-semibold text-core leading-tight">ETH L1 bridge · mainnet</div>
+          <div class="font-mono text-[0.62rem] text-core/55 mt-1">USDC · stETH on-ramps</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <a href="https://loka-network.github.io/loka-payment-book/" target="_blank" rel="noreferrer" class="group rounded-xl border border-core/20 bg-white/40 p-6 hover:border-core hover:bg-white/70 transition-colors flex items-center justify-between gap-4">
+        <div>
+          <div class="font-display text-lg font-semibold text-core tracking-tight leading-none">Payment book</div>
+          <div class="font-mono text-[0.62rem] tracking-widest text-core/55 mt-2">Technical documentation</div>
+        </div>
+        <span aria-hidden="true" class="text-core/50 group-hover:text-core transition-colors text-xl">↗</span>
+      </a>
+      <a href="https://github.com/loka-network/loka-chain" target="_blank" rel="noreferrer" class="group rounded-xl border border-core/20 bg-white/40 p-6 hover:border-core hover:bg-white/70 transition-colors flex items-center justify-between gap-4">
+        <div>
+          <div class="font-display text-lg font-semibold text-core tracking-tight leading-none">GitHub</div>
+          <div class="font-mono text-[0.62rem] tracking-widest text-core/55 mt-2">loka-network/loka-chain</div>
+        </div>
+        <span aria-hidden="true" class="text-core/50 group-hover:text-core transition-colors text-xl">↗</span>
+      </a>
+      <a href="https://x.com/lokachain" target="_blank" rel="noreferrer" class="group rounded-xl border border-core/20 bg-white/40 p-6 hover:border-core hover:bg-white/70 transition-colors flex items-center justify-between gap-4">
+        <div>
+          <div class="font-display text-lg font-semibold text-core tracking-tight leading-none">@lokachain</div>
+          <div class="font-mono text-[0.62rem] tracking-widest text-core/55 mt-2">on X</div>
+        </div>
+        <span aria-hidden="true" class="text-core/50 group-hover:text-core transition-colors text-xl">↗</span>
+      </a>
+    </div>
+
+    <div class="mt-16 pt-8 border-t border-core/15 flex items-center justify-between">
+      <a href="#" class="font-mono text-[0.7rem] tracking-widest text-core/60 hover:text-core transition-colors">← back to atara</a>
+      <span class="font-mono text-[0.62rem] tracking-widest text-core/40">loka chain · part of the atara ecosystem</span>
+    </div>
+  </section>
+
+</main>

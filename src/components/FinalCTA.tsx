@@ -11,7 +11,7 @@ export default function FinalCTA() {
       <div className="crosshair v -top-8 left-1/2 -translate-x-1/2"></div>
 
       <div className="text-center max-w-3xl mx-auto mb-32 relative z-10">
-        <div className="text-[0.6rem] tracking-widest text-muted mb-6">VIII. Initialize</div>
+        <div className="text-[0.6rem] tracking-widest text-muted mb-6">V. Initialize</div>
         <h2 className="font-display text-5xl md:text-6xl lg:text-7xl font-semibold text-core leading-none mb-12">
           Your agent has work to do.<br />Let it pay.
         </h2>

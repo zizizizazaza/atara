@@ -32,7 +32,7 @@ export default function FAQ() {
 
   return (
     <section id="faq" className="py-24 border-t border-faint relative">
-      <div className="text-[0.6rem] tracking-widest text-muted mb-6">VII. Questions</div>
+      <div className="text-[0.6rem] tracking-widest text-muted mb-6">IV. Questions</div>
       <h2 className="font-display text-3xl md:text-4xl font-semibold text-core mb-16 max-w-3xl">
         The questions builders actually ask.
       </h2>
