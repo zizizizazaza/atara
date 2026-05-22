@@ -235,7 +235,6 @@ function MockQR({ value, size = 168 }: { value: string; size?: number }) {
     const c2 = test(N - 7, 0); if (c2 !== null) return c2
     return false
   }
-  const cell = size / N
 
   return (
     <div className="rounded-xl bg-white p-3 border border-core/15" style={{ width: size + 24, height: size + 24 }}>
