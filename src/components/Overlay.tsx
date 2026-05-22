@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
+import { isAuthed } from '../auth'
 
 export default function Overlay() {
   const [scrolled, setScrolled] = useState(false)
   const [solutionOpen, setSolutionOpen] = useState(false)
+  const [authed, setAuthedState] = useState<boolean>(() => isAuthed())
   const closeTimer = useRef<number | null>(null)
 
   const openSolution = () => {
@@ -22,6 +24,16 @@ export default function Overlay() {
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  useEffect(() => {
+    const sync = () => setAuthedState(isAuthed())
+    window.addEventListener('atara-auth-changed', sync)
+    window.addEventListener('hashchange', sync)
+    return () => {
+      window.removeEventListener('atara-auth-changed', sync)
+      window.removeEventListener('hashchange', sync)
+    }
   }, [])
 
   return (
@@ -123,10 +135,13 @@ export default function Overlay() {
           Docs
         </a>
         <button
-          onClick={() => { window.location.hash = '#/dashboard' }}
+          onClick={() => {
+            if (authed) window.location.hash = '#/dashboard'
+            else window.dispatchEvent(new Event('atara-login-open'))
+          }}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-core/40 text-core font-medium text-[0.9rem] tracking-wide hover:border-glow hover:text-glow transition-colors"
         >
-          Dashboard
+          {authed ? 'Dashboard' : 'Log in'}
         </button>
         <button
           onClick={() => { window.location.hash = '#/guide' }}
