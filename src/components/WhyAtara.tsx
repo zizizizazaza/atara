@@ -325,7 +325,7 @@ export default function WhyAtara() {
             className="pillar-card relative flex flex-col rounded-2xl border border-core/15 overflow-hidden"
             style={{ backgroundColor: p.tint }}
           >
-            <div className="pillar-art relative h-44 px-5 pt-5">
+            <div className="pillar-art relative h-56 px-5 pt-5">
               {p.art}
               <span
                 className="absolute top-3 right-4 font-mono text-[0.65rem] tracking-widest text-core/70"
@@ -334,8 +334,8 @@ export default function WhyAtara() {
               </span>
             </div>
             <div
-              className="h-px mx-5"
-              style={{ background: `linear-gradient(to right, transparent, ${p.accent}66, transparent)` }}
+              className="h-0.5 mx-5"
+              style={{ backgroundColor: p.accent }}
             />
             <div className="p-5 pt-4">
               <h3 className="font-display text-xl md:text-[1.3rem] font-semibold text-core leading-snug mb-2 tracking-tight">

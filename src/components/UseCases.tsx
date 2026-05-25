@@ -14,9 +14,26 @@ type Case = {
   user: string
   reply: string
   bill?: Bill
+  featured?: boolean
 }
 
 const cases: Case[] = [
+  {
+    n: '03',
+    title: 'Shopping on Shopify',
+    icon: 'simple-icons:shopify',
+    art: { icon: 'lucide:shopping-bag', tint: '#DDE3CB', glow: '#5A8A2C' },
+    story: 'A teammate\'s birthday is Friday. The agent picks a bundle within budget and surfaces the cart for sign-off.',
+    user: 'Send Priya a birthday gift under $80 — she likes scented candles.',
+    reply: 'Found a candle + small-batch wine bundle on a Shopify boutique, $74 with shipping. Confirm and I will ship it.',
+    bill: {
+      line: 'Otherland · candle + wine bundle',
+      amount: '$74.00',
+      meta: 'Routed via Crossmint · ships to Brooklyn',
+      cta: 'Approve and ship',
+    },
+    featured: true,
+  },
   {
     n: '01',
     title: 'Buying SaaS subscriptions',
@@ -36,21 +53,6 @@ const cases: Case[] = [
     reply: 'Topped up. $50.00 added in 2.1s, $450 left this week. Tagged to research-agent.',
   },
   {
-    n: '03',
-    title: 'Shopping on Shopify',
-    icon: 'simple-icons:shopify',
-    art: { icon: 'lucide:shopping-bag', tint: '#DDE3CB', glow: '#5A8A2C' },
-    story: 'A teammate\'s birthday is Friday. The agent picks a bundle within budget and surfaces the cart for sign-off.',
-    user: 'Send Priya a birthday gift under $80 — she likes scented candles.',
-    reply: 'Found a candle + small-batch wine bundle on a Shopify boutique, $74 with shipping. Confirm and I will ship it.',
-    bill: {
-      line: 'Otherland · candle + wine bundle',
-      amount: '$74.00',
-      meta: 'Routed via Crossmint · ships to Brooklyn',
-      cta: 'Approve and ship',
-    },
-  },
-  {
     n: '04',
     title: 'Booking travel',
     icon: 'lucide:plane',
@@ -64,6 +66,7 @@ const cases: Case[] = [
       meta: 'Routed via Crossmint · Amadeus',
       cta: 'Approve and book',
     },
+    featured: true,
   },
   {
     n: '05',
@@ -130,19 +133,22 @@ function BillCard({ bill }: { bill: Bill }) {
 
 function ArtFrame({
   n,
+  compact,
   children,
 }: {
   n: string
+  compact?: boolean
   children: React.ReactNode
 }) {
+  const height = compact ? 116 : 168
   return (
     <div
-      className="relative overflow-hidden -mx-7 -mt-7 mb-7 bg-white/25"
-      style={{ height: 152 }}
+      className={`relative overflow-hidden bg-white/25 ${compact ? '-mx-6 -mt-6 mb-6' : '-mx-7 -mt-7 mb-7'}`}
+      style={{ height }}
     >
       {/* faint paper grid */}
       <svg
-        viewBox="0 0 400 152"
+        viewBox={`0 0 400 ${height}`}
         preserveAspectRatio="xMidYMid slice"
         className="absolute inset-0 w-full h-full"
         aria-hidden
@@ -152,9 +158,9 @@ function ArtFrame({
             <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#1A151C" strokeWidth="0.4" opacity="0.06" />
           </pattern>
         </defs>
-        <rect width="400" height="152" fill={`url(#grid-${n})`} />
+        <rect width="400" height={height} fill={`url(#grid-${n})`} />
         {/* horizon */}
-        <line x1="0" y1="118" x2="400" y2="118" stroke="#1A151C" strokeWidth="0.5" strokeDasharray="2 4" opacity="0.18" />
+        <line x1="0" y1={height - 34} x2="400" y2={height - 34} stroke="#1A151C" strokeWidth="0.5" strokeDasharray="2 4" opacity="0.18" />
       </svg>
 
       {/* illustration layer */}
@@ -534,7 +540,7 @@ function Art06() {
   )
 }
 
-function CaseArt({ n }: { n: string }) {
+function CaseArt({ n, compact }: { n: string; compact?: boolean }) {
   const inner = {
     '01': <Art01 />,
     '02': <Art02 />,
@@ -543,7 +549,7 @@ function CaseArt({ n }: { n: string }) {
     '05': <Art05 />,
     '06': <Art06 />,
   }[n] ?? null
-  return <ArtFrame n={n}>{inner}</ArtFrame>
+  return <ArtFrame n={n} compact={compact}>{inner}</ArtFrame>
 }
 
 export default function UseCases() {
@@ -568,30 +574,45 @@ export default function UseCases() {
         Small payments settle on their own; bigger ones come back for sign-off.
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {cases.map((c) => (
-          <article
-            key={c.n}
-            className="uc-card group p-7 flex flex-col bg-white/30 backdrop-blur-sm border border-faint hover:border-main/40"
-          >
-            <CaseArt n={c.n} />
-            <h3 className="font-display text-2xl font-semibold text-core leading-tight mb-5">
-              {c.title}
-            </h3>
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+        {cases.map((c, i) => {
+          const featured = !!c.featured
+          // Z-rhythm spans:
+          // row1: 7 + 5 | row2: 5 + 7 | row3: 6 + 6
+          const span = [7, 5, 5, 7, 6, 6][i] ?? 6
+          return (
+            <article
+              key={c.n}
+              className={`uc-card group flex flex-col bg-white/30 backdrop-blur-sm border border-faint hover:border-main/40 ${featured ? 'p-7' : 'p-6'}`}
+              style={{ gridColumn: `span ${span} / span ${span}` }}
+            >
+              <CaseArt n={c.n} compact={!featured} />
+              <h3
+                className={`font-display font-semibold text-core leading-tight ${
+                  featured ? 'text-2xl md:text-[1.75rem] mb-5' : 'text-xl mb-3'
+                }`}
+              >
+                {c.title}
+              </h3>
 
-            <p className="text-[0.78rem] leading-loose text-main opacity-80 mb-6">
-              {c.story}
-            </p>
+              <p
+                className={`leading-loose text-main opacity-80 ${
+                  featured ? 'text-[0.78rem] mb-6' : 'text-[0.75rem] mb-5'
+                }`}
+              >
+                {c.story}
+              </p>
 
-            <div className="flex flex-col gap-3 mt-auto">
-              <Bubble side="user">{c.user}</Bubble>
-              <Bubble side="ai">
-                <div>{c.reply}</div>
-                {c.bill && <BillCard bill={c.bill} />}
-              </Bubble>
-            </div>
-          </article>
-        ))}
+              <div className="flex flex-col gap-3 mt-auto">
+                <Bubble side="user">{c.user}</Bubble>
+                <Bubble side="ai">
+                  <div>{c.reply}</div>
+                  {c.bill && <BillCard bill={c.bill} />}
+                </Bubble>
+              </div>
+            </article>
+          )
+        })}
       </div>
     </section>
   )
