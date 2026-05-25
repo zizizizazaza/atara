@@ -176,6 +176,57 @@ body {
 }
 
 /* use-case card micro animations */
+.uc-row {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.uc-row.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* sticky typo panel — element drift on activation */
+.uc-typo .uc-typo-numeral,
+.uc-typo .uc-typo-block,
+.uc-typo .uc-typo-card {
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.uc-typo[aria-hidden="true"] .uc-typo-numeral { transform: translate(-18px, 12px); }
+.uc-typo[aria-hidden="true"] .uc-typo-block   { transform: translate(28px, -50%) scale(0.94); opacity: 0; }
+.uc-typo[aria-hidden="true"] .uc-typo-card    { transform: translateY(14px); opacity: 0; }
+.uc-typo[aria-hidden="false"] .uc-typo-numeral { transform: translate(0, 0); }
+.uc-typo[aria-hidden="false"] .uc-typo-block   { transform: translate(0, -50%) scale(1); opacity: 0.18; }
+.uc-typo[aria-hidden="false"] .uc-typo-card    { transform: translateY(0); opacity: 1; }
+
+/* receipt drop-in when panel activates */
+.uc-typo .uc-receipt {
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.34, 1.3, 0.4, 1);
+}
+.uc-typo[aria-hidden="true"]  .uc-receipt { opacity: 0; transform: translateY(-22px) rotate(-3deg); }
+.uc-typo[aria-hidden="false"] .uc-receipt { opacity: 1; transform: translateY(0) rotate(-1.6deg); }
+
+.uc-typo .uc-stamp {
+  transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.5, 1.4, 0.4, 1);
+  transition-delay: 0.45s;
+}
+.uc-typo[aria-hidden="true"]  .uc-stamp { opacity: 0; transform: rotate(-30deg) scale(1.6); transition-delay: 0s; }
+.uc-typo[aria-hidden="false"] .uc-stamp { opacity: 1; transform: rotate(-8deg) scale(1); }
+
+/* brand constellation — chips float in around the receipt */
+.uc-typo .uc-brand-chip {
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.34, 1.4, 0.5, 1);
+}
+.uc-typo[aria-hidden="true"]  .uc-brand-chip { opacity: 0; transform: scale(0.55); }
+.uc-typo[aria-hidden="false"] .uc-brand-chip { opacity: 1; transform: scale(1); }
+
 .uc-card {
   transition:
     transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
@@ -331,6 +382,91 @@ body {
 }
 @keyframes pa-route-flow { to { stroke-dashoffset: -20; } }
 
+@keyframes pr-fill {
+  from { transform: scaleX(0); transform-origin: left center; }
+  to   { transform: scaleX(1); transform-origin: left center; }
+}
+
+.ks-swap {
+  display: inline-block;
+  animation: ks-swap 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes ks-swap {
+  from { opacity: 0; transform: translateY(-4px); filter: blur(2px); }
+  to   { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+.pillar-fly {
+  opacity: 0;
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pillar-fly.from-left  { transform: translateX(-60px) translateY(20px); }
+.pillar-fly.from-right { transform: translateX(60px)  translateY(20px); }
+.pillars-in .pillar-fly {
+  opacity: 1;
+  transform: translateX(0) translateY(0);
+}
+
+.pillar-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  animation: pillar-reveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes pillar-reveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes mc-row-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Flip-board numerals — used in WhyAtara pillars */
+.flip-number {
+  display: inline-flex;
+  align-items: baseline;
+  line-height: 1;
+}
+.fd {
+  display: inline-block;
+  overflow: hidden;
+  height: 1em;
+  line-height: 1;
+  vertical-align: top;
+  position: relative;
+}
+.fd::before {
+  /* faint mid-line — split-flap seam */
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%;
+  height: 1px;
+  background: rgba(26, 21, 28, 0.06);
+  pointer-events: none;
+  z-index: 1;
+}
+.fd-strip {
+  display: block;
+  line-height: 1;
+  will-change: transform;
+}
+.fd-row {
+  display: block;
+  height: 1em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pillar-reveal, .pillar-fly { opacity: 1; transform: none; animation: none; transition: none; }
+  .ks-swap { animation: none; }
+  .fd-strip { transition: none !important; }
+  .fd::before { display: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .pillar-card, .pillar-art svg, .pa-receipt, .pa-rail { transition: none; }
   .pa-receipt { transform: rotate(0); }
@@ -382,6 +518,14 @@ body {
   }
   .uc-meter-fill { transform: scaleX(1); }
   .uc-check { opacity: 1; transform: scale(1); }
+  .uc-row { opacity: 1; transform: none; transition: none; }
+  .uc-typo, .uc-typo .uc-typo-numeral, .uc-typo .uc-typo-block, .uc-typo .uc-typo-card,
+  .uc-typo .uc-receipt, .uc-typo .uc-stamp, .uc-typo .uc-brand-chip {
+    transition: none;
+  }
+  .uc-typo .uc-receipt { transform: rotate(-1.6deg); opacity: 1; }
+  .uc-typo .uc-stamp { transform: rotate(-8deg) scale(1); opacity: 1; }
+  .uc-typo .uc-brand-chip { opacity: 1; transform: scale(1); }
 }
 
 

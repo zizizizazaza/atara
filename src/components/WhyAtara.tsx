@@ -1,6 +1,7 @@
+import { useEffect, useRef, useState } from 'react'
+
 type Chip = { name: string; icon?: string }
 
-// Three rows of real partners from Crossmint / Tempo / x402 ecosystems.
 const row1: Chip[] = [
   { name: 'Amazon', icon: 'simple-icons:amazon' },
   { name: 'Shopify', icon: 'simple-icons:shopify' },
@@ -64,7 +65,6 @@ function shuffleSeeded(arr: Chip[], seed: number): Chip[] {
   return out
 }
 
-// Distribute all chips across N rows with no cross-row duplication.
 function splitRows(chips: Chip[], rowCount: number): Chip[][] {
   const shuffled = shuffleSeeded(chips, 42)
   const rows: Chip[][] = Array.from({ length: rowCount }, () => [])
@@ -94,7 +94,13 @@ function LogoItem({ chip }: { chip: Chip }) {
 function BackdropRow({ chips, reverse, duration }: { chips: Chip[]; reverse?: boolean; duration: number }) {
   const items = [...chips, ...chips]
   return (
-    <div className="overflow-hidden">
+    <div
+      className="overflow-hidden"
+      style={{
+        maskImage: 'linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%)',
+        WebkitMaskImage: 'linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%)',
+      }}
+    >
       <div
         className="flex gap-14 pr-14 will-change-transform"
         style={{
@@ -112,185 +118,247 @@ function BackdropRow({ chips, reverse, duration }: { chips: Chip[]; reverse?: bo
   )
 }
 
-function PillarArt01() {
-  // mock invoice receipt — looks like a real digital receipt, one bill across rails
-  const lines = [
-    { name: 'cursor.com · 6 seats', rail: 'tempo',     amount: '$240.00' },
-    { name: 'openai.com · api top-up', rail: 'x402',   amount:  '$50.00' },
-    { name: 'otherland · candle bundle', rail: 'crossmint', amount: '$74.00' },
-  ]
+// --- Flip-board numerals --------------------------------------------------
+
+function FlipDigit({ digit, animate, delayMs = 0, durationMs = 900 }: {
+  digit: number
+  animate: boolean
+  delayMs?: number
+  durationMs?: number
+}) {
   return (
-    <div className="pa-receipt-wrap relative w-full h-full flex items-center justify-center pt-1">
-      <div className="pa-receipt bg-white text-core rounded-[3px] shadow-[0_10px_28px_-20px_rgba(26,21,28,0.45)] px-4 pt-3 pb-1 w-[78%] font-mono text-[0.6rem] leading-snug">
-        <div className="flex items-center justify-between">
-          <span className="font-semibold tracking-tight">atara · invoice</span>
-          <span className="opacity-50">2026-05</span>
+    <span className="fd">
+      <span
+        className="fd-strip"
+        style={{
+          transform: `translateY(-${digit * 10}%)`,
+          transition: animate ? `transform ${durationMs}ms cubic-bezier(0.34, 1.32, 0.5, 1) ${delayMs}ms` : 'none',
+        }}
+      >
+        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((d) => (
+          <span key={d} className="fd-row">{d}</span>
+        ))}
+      </span>
+    </span>
+  )
+}
+
+function FlipNumber({ value, animate, baseDelayMs = 0, durationMs = 900, perDigitDelay = 110, padTo }: {
+  value: number
+  animate: boolean
+  baseDelayMs?: number
+  durationMs?: number
+  perDigitDelay?: number
+  padTo?: number
+}) {
+  const raw = value.toString()
+  const padded = padTo ? raw.padStart(padTo, '0') : raw
+  const digits = padded.split('').map(Number)
+  return (
+    <span className="flip-number" style={{ fontVariantNumeric: 'tabular-nums' }}>
+      {digits.map((d, i) => (
+        <FlipDigit
+          key={i}
+          digit={d}
+          animate={animate}
+          durationMs={durationMs}
+          delayMs={baseDelayMs + i * perDigitDelay}
+        />
+      ))}
+    </span>
+  )
+}
+
+// --- Pillar 01 · merchant counter ----------------------------------------
+
+function MerchantCounter() {
+  const [started, setStarted] = useState(false)
+  const ref = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          setStarted(true)
+          io.disconnect()
+        }
+      })
+    }, { threshold: 0.35 })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
+  const categories = [
+    { label: 'shops',      count: 12 },
+    { label: 'saas',       count: 9  },
+    { label: 'apis',       count: 8  },
+    { label: 'cards',      count: 5  },
+    { label: 'travel',     count: 4  },
+    { label: 'wallets',    count: 4  },
+  ]
+
+  return (
+    <div ref={ref} className="w-full h-full grid grid-cols-1 md:grid-cols-[1.1fr_1fr] gap-8 items-end">
+      <div>
+        <div className="font-display text-[8rem] md:text-[11rem] font-semibold leading-[0.85] tracking-tighter text-core flex items-baseline">
+          <FlipNumber value={started ? 42 : 0} animate={started} baseDelayMs={120} durationMs={1100} perDigitDelay={180} />
+          <span className="text-core/35">+</span>
         </div>
-        <div className="border-t border-dashed border-core/30 my-1.5" />
-        {lines.map((l) => (
-          <div key={l.name} className="flex items-baseline justify-between gap-2">
-            <span className="truncate">
-              {l.name}
-              <span className="opacity-50"> · {l.rail}</span>
+        <div className="font-mono text-[0.6rem] tracking-superwide text-core/55 mt-2 flex items-center gap-2">
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#3F7E4F] animate-pulse" />
+          merchants on the network · growing weekly
+        </div>
+      </div>
+      <div className="grid grid-cols-2 gap-x-6 gap-y-2 pb-3">
+        {categories.map((c, i) => (
+          <div
+            key={c.label}
+            className="flex items-baseline justify-between font-mono text-[0.65rem] tracking-superwide text-core/70 border-b border-core/10 pb-1.5"
+            style={{ animation: 'mc-row-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both', animationDelay: `${600 + i * 80}ms` }}
+          >
+            <span>{c.label}</span>
+            <span className="text-core font-semibold font-display text-[1rem] leading-none">
+              <FlipNumber
+                value={started ? c.count : 0}
+                animate={started}
+                baseDelayMs={700 + i * 120}
+                durationMs={800}
+                perDigitDelay={90}
+              />
             </span>
-            <span className="tabular-nums">{l.amount}</span>
           </div>
         ))}
-        <div className="border-t border-dashed border-core/30 my-1.5" />
-        <div className="flex items-baseline justify-between font-semibold">
-          <span>total · 1 trace_id</span>
-          <span className="tabular-nums">$364.00</span>
+      </div>
+    </div>
+  )
+}
+
+// --- Pillar 02 · price race ---------------------------------------------
+
+function PriceRace() {
+  const [tick, setTick] = useState(0)
+  const ref = useRef<HTMLDivElement | null>(null)
+  const visibleRef = useRef(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { visibleRef.current = e.isIntersecting })
+    }, { threshold: 0.3 })
+    io.observe(el)
+    const id = setInterval(() => {
+      if (visibleRef.current) setTick((t) => t + 1)
+    }, 2800)
+    return () => { io.disconnect(); clearInterval(id) }
+  }, [])
+
+  const rounds = [
+    { quotes: [0.94, 0.61, 0.22], saved: 0.72 },
+    { quotes: [1.10, 0.48, 0.18], saved: 0.92 },
+    { quotes: [0.78, 0.55, 0.31], saved: 0.47 },
+  ]
+  const round = rounds[tick % rounds.length]
+  const winnerIdx = round.quotes.indexOf(Math.min(...round.quotes))
+
+  return (
+    <div ref={ref} className="w-full h-full flex flex-col justify-end gap-2.5">
+      {round.quotes.map((q, i) => {
+        const isWin = i === winnerIdx
+        const w = Math.max(14, 100 - q * 55)
+        const intPart = Math.floor(q)
+        const decPart = Math.round((q - intPart) * 100)
+        return (
+          <div
+            key={`row-${i}`}
+            className={`flex items-center gap-2.5 rounded-md px-2.5 py-1.5 border transition-colors ${
+              isWin ? 'border-core/55 bg-white' : 'border-core/15 bg-white/40'
+            }`}
+          >
+            <span className={`font-mono text-[0.5rem] tracking-superwide w-6 ${isWin ? 'text-core' : 'text-core/55'}`}>
+              q{String.fromCharCode(97 + i)}
+            </span>
+            <div className="flex-1 h-1 rounded-full bg-core/10 overflow-hidden">
+              <div
+                key={`bar-${tick}-${i}`}
+                className={`h-full ${isWin ? 'bg-core' : 'bg-core/35'}`}
+                style={{
+                  width: `${w}%`,
+                  animation: 'pr-fill 700ms cubic-bezier(0.22, 1, 0.36, 1) both',
+                  animationDelay: `${i * 90}ms`,
+                }}
+              />
+            </div>
+            <span className={`font-mono text-[0.7rem] tracking-tight w-12 text-right ${isWin ? 'font-semibold text-core' : 'text-core/55'} inline-flex justify-end items-baseline leading-none`}>
+              <FlipNumber value={intPart} animate baseDelayMs={i * 60} durationMs={550} perDigitDelay={60} />
+              <span>.</span>
+              <FlipNumber value={decPart} padTo={2} animate baseDelayMs={i * 60 + 80} durationMs={550} perDigitDelay={60} />
+              <span>%</span>
+            </span>
+            {isWin && <span className="font-mono text-[0.45rem] tracking-superwide text-core/70 w-9 text-right">picked</span>}
+            {!isWin && <span className="w-9" />}
+          </div>
+        )
+      })}
+      <div className="mt-1 font-mono text-[0.55rem] tracking-superwide text-core/60">
+        ↳ saved {round.saved.toFixed(2)}% · auto-routed
+      </div>
+    </div>
+  )
+}
+
+// --- Pillar 03 · one key snippet ----------------------------------------
+
+function KeySnippet() {
+  return (
+    <div className="w-full h-full flex items-center justify-center">
+      <div className="w-full rounded-lg bg-[#110e13] text-[#cfd2d8] font-mono text-[0.62rem] leading-relaxed px-4 py-3 shadow-[0_18px_38px_-26px_rgba(26,21,28,0.55)]">
+        <div className="flex items-center justify-between mb-2 opacity-70">
+          <span className="text-[0.5rem] tracking-superwide">~/agent</span>
+          <span className="text-[0.5rem] tracking-superwide">1 key · 40+ merchants</span>
+        </div>
+        <div>
+          <span style={{ color: '#56b6c2' }}>$</span>{' '}
+          <span style={{ color: '#61afef' }}>export</span>{' '}
+          <span style={{ color: '#e5c07b' }}>ATARA_KEY</span>=<span style={{ color: '#98c379' }}>"sk_…"</span>
+        </div>
+        <div>
+          <span style={{ color: '#56b6c2' }}>$</span>{' '}
+          <span style={{ color: '#61afef' }}>atara</span> pay{' '}
+          <span style={{ color: '#98c379' }}>"any.merchant"</span>{' '}
+          <span style={{ color: '#d19a66' }}>$50</span>
+        </div>
+        <div className="opacity-80 mt-1">
+          <span style={{ color: '#98c379' }}>✓</span> routed · settled · receipt
         </div>
       </div>
     </div>
   )
 }
 
-function PillarArt02() {
-  // three small brand wordmarks, no chrome
-  const brands = [
-    { name: 'Crossmint', src: '/logos/brands/crossmint.svg', h: 14, soon: false },
-    { name: 'Tempo',     src: '/logos/brands/tempo.svg',     h: 17, soon: false },
-    { name: 'Loka Pay',  src: null,                          h: 14, soon: true },
-  ]
-  return (
-    <div className="pa-rails relative w-full h-full flex flex-col items-center justify-center gap-4 px-1 pt-1">
-      {brands.map((b, i) => (
-        <div key={b.name} className="pa-rail flex flex-col items-center w-full">
-          <div className="h-5 flex items-center gap-2" style={{ opacity: b.soon ? 0.55 : 0.85 }}>
-            {b.src ? (
-              <img src={b.src} alt={b.name} style={{ height: b.h }} className="w-auto" />
-            ) : (
-              <span className="font-display font-medium text-core text-[0.95rem] tracking-tight leading-none">
-                {b.name}
-              </span>
-            )}
-            {b.soon && (
-              <span className="font-mono text-[0.55rem] tracking-widest text-core/55 leading-none">
-                soon
-              </span>
-            )}
-          </div>
-          {i < brands.length - 1 && (
-            <div className="w-10 h-px bg-core/15 mt-4" />
-          )}
-        </div>
-      ))}
-    </div>
-  )
-}
-
-function PillarArt03() {
-  // a router node fanning out to three rails, with one path highlighted
-  const stroke = 'rgba(26, 21, 28, 0.22)'
-  const inkSoft = 'rgba(26, 21, 28, 0.55)'
-  const blue = '#8CB6E8'
-  return (
-    <svg viewBox="0 0 200 110" className="w-full h-full" aria-hidden>
-      <defs>
-        <linearGradient id="pa-route-grad" x1="0" x2="1" y1="0" y2="0">
-          <stop offset="0%" stopColor={blue} stopOpacity="0.35" />
-          <stop offset="55%" stopColor={blue} stopOpacity="0.95" />
-          <stop offset="100%" stopColor={blue} stopOpacity="0.95" />
-        </linearGradient>
-      </defs>
-
-      {/* fan-out paths */}
-      <path d="M 52 55 C 92 55, 112 26, 158 26" fill="none" stroke={stroke} strokeWidth="1" />
-      <path d="M 52 55 C 92 55, 112 84, 158 84" fill="none" stroke={stroke} strokeWidth="1" />
-      <path
-        d="M 52 55 C 92 55, 112 55, 158 55"
-        fill="none"
-        stroke="url(#pa-route-grad)"
-        strokeWidth="1.6"
-        className="pa-route"
-      />
-
-      {/* request node */}
-      <circle cx="38" cy="55" r="11" fill="#FFFFFF" stroke={stroke} strokeWidth="1" />
-      <circle cx="38" cy="55" r="3.4" fill={blue} />
-
-      {/* destinations */}
-      {[
-        { y: 26, label: 'A' },
-        { y: 55, label: 'B', active: true },
-        { y: 84, label: 'C' },
-      ].map((d) => (
-        <g key={d.label}>
-          <circle
-            cx="170"
-            cy={d.y}
-            r="9"
-            fill={d.active ? blue : '#FFFFFF'}
-            stroke={d.active ? 'transparent' : stroke}
-            strokeWidth="1"
-          />
-          <text
-            x="170"
-            y={d.y + 3}
-            fontFamily="Space Mono, monospace"
-            fontSize="8.5"
-            fill={d.active ? '#FFFFFF' : inkSoft}
-            textAnchor="middle"
-          >
-            {d.label}
-          </text>
-        </g>
-      ))}
-
-      {/* travelling pulse along the chosen route */}
-      <circle r="2.6" fill={blue} className="pa-pulse">
-        <animateMotion dur="2.4s" repeatCount="indefinite" path="M 52 55 C 92 55, 112 55, 158 55" />
-      </circle>
-    </svg>
-  )
-}
-
-const pillars: {
-  index: string
+type Pillar = {
   title: string
-  body: React.ReactNode
-  art: React.ReactNode
-  tint: string
-  accent: string
-}[] = [
+  body: string
+  art: () => React.ReactElement
+}
+
+const pillars: Pillar[] = [
   {
-    index: '01',
-    title: 'One key, one bill',
-    body: (
-      <>
-        Replace Crossmint, Tempo, and x402 integrations with a single Atara API
-        key. One invoice, one <code className="font-mono text-core">trace_id</code> across every rail.
-      </>
-    ),
-    art: <PillarArt01 />,
-    tint: '#F7F1E6',
-    accent: '#3F7E4F',
+    title: 'One key, the widest reach.',
+    body: 'Subscriptions, retail, APIs, cards, travel, wallets — a single integration unlocks the broadest agent-payable network on the market.',
+    art: MerchantCounter,
   },
   {
-    index: '02',
-    title: 'Three rails, full coverage',
-    body: (
-      <>
-        Crossmint for retail checkouts. Tempo for SaaS subscriptions. Loka Pay
-        for Lightning-native agent micropayments — coming soon.
-      </>
-    ),
-    art: <PillarArt02 />,
-    tint: '#F7F1E6',
-    accent: '#C28A2C',
+    title: 'Cheapest path, every charge.',
+    body: 'Atara races quotes across the network behind the scenes and always picks the lowest-fee rail. You never have to pick.',
+    art: PriceRace,
   },
   {
-    index: '03',
-    title: 'Routing that picks the rail',
-    body: (
-      <>
-        Cheapest path per transaction. Automatic fallback when a rail fails.
-      </>
-    ),
-    art: <PillarArt03 />,
-    tint: '#F7F1E6',
-    accent: '#3C64B8',
+    title: 'One API key. Two lines of code.',
+    body: 'No SDK soup, no rail-specific glue, no merchant onboarding. Drop in one key — any agent can spend anywhere Atara reaches.',
+    art: KeySnippet,
   },
 ]
 
@@ -301,15 +369,27 @@ export default function WhyAtara() {
     { reverse: false, duration: 80 },
   ]
   const rowChips = splitRows(allChips, rowConfigs.length)
+  const gridRef = useRef<HTMLDivElement | null>(null)
+  const [gridIn, setGridIn] = useState(false)
+
+  useEffect(() => {
+    const el = gridRef.current
+    if (!el) return
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { setGridIn(true); io.disconnect() } })
+    }, { threshold: 0.15 })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
 
   return (
     <section id="why" className="py-24 relative">
       <div className="text-[0.6rem] tracking-widest text-muted mb-6">II. Why Atara</div>
-      <h2 className="font-display text-3xl md:text-4xl font-semibold text-core mb-4 max-w-3xl">
-        One key. Every rail. Auto-routed.
+      <h2 className="font-display text-4xl md:text-[3.4rem] font-semibold text-core mb-4 max-w-3xl leading-[1.05] tracking-tighter">
+        One key. Every merchant. Cheapest path, every time.
       </h2>
       <p className="text-[0.75rem] leading-relaxed tracking-widest text-main opacity-70 mb-12 max-w-2xl">
-        Atara is the OpenRouter for agent payments — one integration, the broadest merchant network on the market, and routing that picks the right rail for every wallet and scenario.
+        The broadest agent-payable merchant network, auto-routed to the cheapest rail, behind a single API key.
       </p>
 
       <div className="mb-16 py-10 flex flex-col gap-8">
@@ -318,35 +398,37 @@ export default function WhyAtara() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {pillars.map((p) => (
-          <div
-            key={p.title}
-            className="pillar-card relative flex flex-col rounded-2xl border border-core/15 overflow-hidden"
-            style={{ backgroundColor: p.tint }}
-          >
-            <div className="pillar-art relative h-56 px-5 pt-5">
-              {p.art}
-              <span
-                className="absolute top-3 right-4 font-mono text-[0.65rem] tracking-widest text-core/70"
-              >
-                · {p.index}
-              </span>
-            </div>
-            <div
-              className="h-0.5 mx-5"
-              style={{ backgroundColor: p.accent }}
-            />
-            <div className="p-5 pt-4">
-              <h3 className="font-display text-xl md:text-[1.3rem] font-semibold text-core leading-snug mb-2 tracking-tight">
-                {p.title}
-              </h3>
-              <p className="text-[0.9rem] leading-relaxed text-main">
-                {p.body}
-              </p>
-            </div>
-          </div>
-        ))}
+      <div ref={gridRef} className={`grid grid-cols-1 lg:grid-cols-12 gap-6 auto-rows-fr ${gridIn ? 'pillars-in' : ''}`}>
+        {pillars.map((p, i) => {
+          const Art = p.art
+          const isHero = i === 0
+          const fromLeft = i === 0
+          return (
+            <article
+              key={i}
+              className={`pillar-card pillar-fly ${fromLeft ? 'from-left' : 'from-right'} relative rounded-2xl border border-core/15 bg-[#F4EFE6] overflow-hidden ${
+                isHero ? 'lg:col-span-7 lg:row-span-2 p-8 min-h-[420px]' : 'lg:col-span-5 p-6 min-h-[200px]'
+              }`}
+              style={{ transitionDelay: `${i * 140}ms` }}
+            >
+              <div className={`relative flex flex-col h-full ${isHero ? 'gap-6' : 'gap-5'}`}>
+                <div className={`relative ${isHero ? 'flex-1 min-h-[200px]' : 'h-32'}`}>
+                  <Art />
+                </div>
+                <div className="relative">
+                  <h3 className={`font-display font-semibold text-core leading-[1.15] tracking-tight mb-2 ${
+                    isHero ? 'text-[1.6rem] md:text-[1.9rem] max-w-md' : 'text-[1.05rem]'
+                  }`}>
+                    {p.title}
+                  </h3>
+                  <p className={`leading-relaxed text-main opacity-75 ${isHero ? 'text-[0.78rem] max-w-md' : 'text-[0.68rem]'}`}>
+                    {p.body}
+                  </p>
+                </div>
+              </div>
+            </article>
+          )
+        })}
       </div>
     </section>
   )
