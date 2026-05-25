@@ -197,7 +197,7 @@ function ChainBadge({ chain, size = 16 }: { chain: WalletChain; size?: number })
   return (
     <span className="inline-flex items-center gap-1.5 min-w-0">
       <ChainLogo chain={chain} size={size} />
-      <span className="font-display text-[0.78rem] font-medium text-core tracking-tight truncate">{m.label}</span>
+      <span className="font-display text-[0.875rem] font-medium text-core tracking-tight truncate">{m.label}</span>
     </span>
   )
 }
@@ -283,13 +283,13 @@ function TopUpModal({ wallets, presetChain, onClose }: { wallets: WalletRow[]; p
               </button>
             )}
             <div className="min-w-0">
-              <div className="font-display text-[1.05rem] font-semibold text-core tracking-tight">Top up</div>
-              <div className="font-mono text-[0.62rem] text-core/55 mt-1.5">
+              <div className="font-display text-[1rem] font-semibold text-core tracking-tight">Top up</div>
+              <div className="font-mono text-[0.625rem] text-core/55 mt-1.5">
                 {step === 'chain' ? 'Choose the chain to receive funds' : `Send USDC on ${chain ? chainMeta[chain].label : ''}`}
               </div>
             </div>
           </div>
-          <button onClick={onClose} className="text-core/45 hover:text-core transition-colors font-mono text-[0.9rem] leading-none p-1" aria-label="close">×</button>
+          <button onClick={onClose} className="text-core/45 hover:text-core transition-colors font-mono text-[1rem] leading-none p-1" aria-label="close">×</button>
         </div>
 
         <div className="px-6 py-6">
@@ -305,10 +305,10 @@ function TopUpModal({ wallets, presetChain, onClose }: { wallets: WalletRow[]; p
                   >
                     <ChainLogo chain={c} size={28} />
                     <div className="flex-1 min-w-0">
-                      <div className="font-display text-[0.92rem] font-semibold text-core tracking-tight">{chainMeta[c].label}</div>
-                      <div className="font-mono text-[0.6rem] text-core/55 mt-0.5 truncate">{shortAddr(w.address)} · ${w.balance.toFixed(2)} usdc</div>
+                      <div className="font-display text-[1rem] font-semibold text-core tracking-tight">{chainMeta[c].label}</div>
+                      <div className="font-mono text-[0.625rem] text-core/55 mt-0.5 truncate">{shortAddr(w.address)} · ${w.balance.toFixed(2)} usdc</div>
                     </div>
-                    <span className="font-mono text-[0.65rem] text-core/45">→</span>
+                    <span className="font-mono text-[0.75rem] text-core/45">→</span>
                   </button>
                 )
               })}
@@ -320,8 +320,8 @@ function TopUpModal({ wallets, presetChain, onClose }: { wallets: WalletRow[]; p
               <div className="flex items-center gap-2.5 mb-4">
                 <ChainLogo chain={chain} size={22} />
                 <div>
-                  <div className="font-display text-[0.92rem] font-semibold text-core tracking-tight leading-none">{chainMeta[chain].label}</div>
-                  <div className="font-mono text-[0.58rem] tracking-wide text-core/55 mt-1">{wallet.label}</div>
+                  <div className="font-display text-[1rem] font-semibold text-core tracking-tight leading-none">{chainMeta[chain].label}</div>
+                  <div className="font-mono text-[0.625rem] tracking-wide text-core/55 mt-1">{wallet.label}</div>
                 </div>
               </div>
 
@@ -329,14 +329,14 @@ function TopUpModal({ wallets, presetChain, onClose }: { wallets: WalletRow[]; p
                 <MockQR value={wallet.address} size={168} />
               </div>
 
-              <div className="font-mono text-[0.58rem] tracking-wide text-core/55 mb-1.5">wallet address</div>
+              <div className="font-mono text-[0.625rem] tracking-wide text-core/55 mb-1.5">wallet address</div>
               <div className="rounded-xl border border-core/15 bg-white/60 px-3.5 py-3 mb-3">
-                <div className="font-mono text-[0.7rem] text-core break-all leading-relaxed">{wallet.address}</div>
+                <div className="font-mono text-[0.75rem] text-core break-all leading-relaxed">{wallet.address}</div>
               </div>
 
               <button
                 onClick={() => { navigator.clipboard.writeText(wallet.address); notify('Address copied') }}
-                className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full text-white font-medium text-[0.82rem] tracking-tight hover:opacity-90 transition-opacity"
+                className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full text-white font-medium text-[0.875rem] tracking-tight hover:opacity-90 transition-opacity"
                 style={{ backgroundColor: '#1A151C' }}
               >
                 Copy address
@@ -347,8 +347,8 @@ function TopUpModal({ wallets, presetChain, onClose }: { wallets: WalletRow[]; p
                   <path d="M12 9v4" /><path d="M12 17h.01" /><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
                 </svg>
                 <div className="min-w-0">
-                  <div className="font-display text-[0.82rem] font-semibold text-[#9c2929] tracking-tight">Only send USDC on {chainMeta[chain].label}.</div>
-                  <div className="font-mono text-[0.62rem] text-core/65 mt-1 leading-relaxed">Funds sent on another chain or asset will be lost and cannot be recovered.</div>
+                  <div className="font-display text-[0.875rem] font-semibold text-[#9c2929] tracking-tight">Only send USDC on {chainMeta[chain].label}.</div>
+                  <div className="font-mono text-[0.625rem] text-core/65 mt-1 leading-relaxed">Funds sent on another chain or asset will be lost and cannot be recovered.</div>
                 </div>
               </div>
             </>
@@ -360,14 +360,14 @@ function TopUpModal({ wallets, presetChain, onClose }: { wallets: WalletRow[]; p
 }
 
 function TxHashLink({ hash, chain }: { hash: string; chain: WalletChain }) {
-  if (hash === '—') return <span className="font-mono text-[0.7rem] text-core/35">—</span>
+  if (hash === '—') return <span className="font-mono text-[0.75rem] text-core/35">—</span>
   const short = `${hash.slice(0, 6)}…${hash.slice(-4)}`
   const explorer = chain === 'base' ? 'basescan' : chain === 'eth' ? 'etherscan' : 'tempo scan'
   return (
     <button
       onClick={(e) => e.stopPropagation()}
       title={`open on ${explorer}`}
-      className="inline-flex items-center gap-1.5 font-mono text-[0.7rem] text-core/70 hover:text-core transition-colors group"
+      className="inline-flex items-center gap-1.5 font-mono text-[0.75rem] text-core/70 hover:text-core transition-colors group"
     >
       <span className="underline decoration-core/20 group-hover:decoration-core/60 underline-offset-[3px] decoration-[0.5px]">{short}</span>
       <svg viewBox="0 0 24 24" className="w-3 h-3 opacity-50 group-hover:opacity-90 transition-opacity" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -387,7 +387,7 @@ function TxStatusPill({ s }: { s: TxStatus }) {
   }
   const m = map[s]
   return (
-    <span className="inline-flex items-center gap-1.5 font-mono text-[0.7rem] tracking-tight" style={{ color: m.color }}>
+    <span className="inline-flex items-center gap-1.5 font-mono text-[0.75rem] tracking-tight" style={{ color: m.color }}>
       <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: m.color }} />
       {m.label}
     </span>
@@ -397,7 +397,7 @@ function TxStatusPill({ s }: { s: TxStatus }) {
 function SessionKeyStatusPill({ s, reason }: { s: SessionKeyStatus; reason?: 'expired' | 'limit_reached' | 'revoked' }) {
   if (s === 'active') {
     return (
-      <span className="inline-flex items-center gap-1.5 px-1.5 py-0.5 rounded font-mono text-[0.65rem] tracking-wide" style={{ color: '#3F7E4F', backgroundColor: 'rgba(63,126,79,0.12)' }}>
+      <span className="inline-flex items-center gap-1.5 px-1.5 py-0.5 rounded font-mono text-[0.75rem] tracking-wide" style={{ color: '#3F7E4F', backgroundColor: 'rgba(63,126,79,0.12)' }}>
         <span className="w-1.5 h-1.5 rounded-full bg-[#3F7E4F]" />
         active
       </span>
@@ -405,7 +405,7 @@ function SessionKeyStatusPill({ s, reason }: { s: SessionKeyStatus; reason?: 'ex
   }
   const label = reason === 'limit_reached' ? 'limit reached' : reason === 'revoked' ? 'revoked' : 'expired'
   return (
-    <span className="inline-flex items-center px-1.5 py-0.5 rounded font-mono text-[0.65rem] tracking-wide" style={{ color: '#7a6a55', backgroundColor: 'rgba(122,106,85,0.12)' }}>
+    <span className="inline-flex items-center px-1.5 py-0.5 rounded font-mono text-[0.75rem] tracking-wide" style={{ color: '#7a6a55', backgroundColor: 'rgba(122,106,85,0.12)' }}>
       {label}
     </span>
   )
@@ -417,7 +417,7 @@ function StatusPill({ code }: { code: number }) {
   const err = code >= 500
   const bg = ok ? 'bg-[#3F7E4F]/12 text-[#3F7E4F]' : warn ? 'bg-[#C28A2C]/15 text-[#8a5e0e]' : err ? 'bg-[#B83C3C]/15 text-[#9c2929]' : 'bg-core/10 text-core/70'
   return (
-    <span className={`inline-flex items-center px-1.5 py-0.5 rounded font-mono text-[0.65rem] tabular-nums ${bg}`}>
+    <span className={`inline-flex items-center px-1.5 py-0.5 rounded font-mono text-[0.75rem] tabular-nums ${bg}`}>
       {code}
     </span>
   )
@@ -425,7 +425,7 @@ function StatusPill({ code }: { code: number }) {
 
 function MethodPill({ m }: { m: Log['method'] }) {
   const color = m === 'POST' ? 'text-[#3C64B8]' : m === 'GET' ? 'text-[#3F7E4F]' : 'text-[#9c2929]'
-  return <span className={`font-mono text-[0.65rem] font-semibold tracking-tight ${color}`}>{m}</span>
+  return <span className={`font-mono text-[0.75rem] font-semibold tracking-tight ${color}`}>{m}</span>
 }
 
 function CopyText({ text, label }: { text: string; label?: string }) {
@@ -433,7 +433,7 @@ function CopyText({ text, label }: { text: string; label?: string }) {
   return (
     <button
       onClick={() => { navigator.clipboard.writeText(text); notify('Copied') }}
-      className="inline-flex items-center gap-1.5 font-mono text-[0.72rem] text-core/80 hover:text-core transition-colors group"
+      className="inline-flex items-center gap-1.5 font-mono text-[0.75rem] text-core/80 hover:text-core transition-colors group"
       title="copy"
     >
       <span>{label ?? text}</span>
@@ -478,15 +478,15 @@ function SpendChart() {
     <div className="rounded-2xl border border-core/12 bg-white/55 p-6">
       <div className="flex items-start justify-between gap-4 mb-6">
         <div>
-          <div className="font-display text-[0.95rem] font-semibold text-core tracking-tight">Spend</div>
+          <div className="font-display text-[1rem] font-semibold text-core tracking-tight">Spend</div>
           <div className="flex items-baseline gap-3 mt-2">
-            <span className="font-display text-[1.9rem] font-semibold text-core leading-none tracking-tight tabular-nums">
+            <span className="font-display text-[2rem] font-semibold text-core leading-none tracking-tight tabular-nums">
               ${total.toFixed(2)}
             </span>
-            <span className={`font-mono text-[0.7rem] tabular-nums ${delta >= 0 ? 'text-[#3F7E4F]' : 'text-[#9c2929]'}`}>
+            <span className={`font-mono text-[0.75rem] tabular-nums ${delta >= 0 ? 'text-[#3F7E4F]' : 'text-[#9c2929]'}`}>
               {delta >= 0 ? '▲' : '▼'} {Math.abs(delta).toFixed(1)}%
             </span>
-            <span className="font-mono text-[0.62rem] tracking-wide text-core/45">
+            <span className="font-mono text-[0.625rem] tracking-wide text-core/45">
               · {txCount} tx · vs prior {range}d
             </span>
           </div>
@@ -497,7 +497,7 @@ function SpendChart() {
               <button
                 key={r}
                 onClick={() => { setRange(r); setHover(null) }}
-                className={`px-2.5 py-1 rounded-full font-mono text-[0.62rem] tracking-wide transition-colors ${
+                className={`px-2.5 py-1 rounded-full font-mono text-[0.625rem] tracking-wide transition-colors ${
                   range === r ? 'bg-core text-white' : 'text-core/60 hover:text-core'
                 }`}
               >
@@ -549,9 +549,9 @@ function SpendChart() {
               className="pointer-events-none absolute top-1 z-10 rounded-lg border border-core/15 bg-white/95 backdrop-blur shadow-[0_12px_28px_-18px_rgba(26,21,28,0.5)] px-3.5 py-3 min-w-[160px]"
               style={side === 'left' ? { left: `calc(${pct}% + 12px)` } : { right: `calc(${100 - pct}% + 12px)` }}
             >
-              <div className="font-mono text-[0.6rem] tracking-wide text-core/55 mb-2">{d.label} · {d.iso}</div>
-              <div className="font-display text-[1.05rem] font-semibold text-core tabular-nums leading-none mb-3">${(d.base + d.tp).toFixed(2)}</div>
-              <div className="space-y-1.5 font-mono text-[0.7rem] text-core/75 tabular-nums">
+              <div className="font-mono text-[0.625rem] tracking-wide text-core/55 mb-2">{d.label} · {d.iso}</div>
+              <div className="font-display text-[1rem] font-semibold text-core tabular-nums leading-none mb-3">${(d.base + d.tp).toFixed(2)}</div>
+              <div className="space-y-1.5 font-mono text-[0.75rem] text-core/75 tabular-nums">
                 <div className="flex items-center justify-between gap-4">
                   <span className="inline-flex items-center gap-1.5"><span className="w-2 h-2 rounded-sm" style={{ backgroundColor: '#3C64B8' }} />base</span>
                   <span>${d.base.toFixed(2)}</span>
@@ -560,7 +560,7 @@ function SpendChart() {
                   <span className="inline-flex items-center gap-1.5"><span className="w-2 h-2 rounded-sm" style={{ backgroundColor: '#C28A2C' }} />tempo</span>
                   <span>${d.tp.toFixed(2)}</span>
                 </div>
-                <div className="flex items-center justify-between gap-4 pt-1.5 mt-1.5 border-t border-core/10 text-core/55 text-[0.62rem] tracking-wide">
+                <div className="flex items-center justify-between gap-4 pt-1.5 mt-1.5 border-t border-core/10 text-core/55 text-[0.625rem] tracking-wide">
                   <span>tx count</span><span>{d.n}</span>
                 </div>
               </div>
@@ -576,8 +576,8 @@ function SectionHeader({ title, sub, action }: { title: string; sub: string; act
   return (
     <div className="flex items-end justify-between gap-4 mb-7">
       <div>
-        <h2 className="font-display text-[1.55rem] font-semibold text-core tracking-tight leading-none">{title}</h2>
-        <p className="text-[0.78rem] text-core/60 mt-2 max-w-xl leading-relaxed">{sub}</p>
+        <h2 className="font-display text-[1.5rem] font-semibold text-core tracking-tight leading-none">{title}</h2>
+        <p className="text-[0.875rem] text-core/60 mt-2 max-w-xl leading-relaxed">{sub}</p>
       </div>
       {action}
     </div>
@@ -607,7 +607,7 @@ function OverviewSection() {
         action={
           <button
             onClick={() => setTopUpOpen(true)}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-white font-medium text-[0.82rem] tracking-tight shadow-sm hover:opacity-90 transition-opacity"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-white font-medium text-[0.875rem] tracking-tight shadow-sm hover:opacity-90 transition-opacity"
             style={{ backgroundColor: '#1A151C' }}
           >
             Top up <span aria-hidden>+</span>
@@ -616,11 +616,11 @@ function OverviewSection() {
       />
 
       <div className="rounded-2xl border border-core/12 bg-white/45 p-6">
-        <div className="font-mono text-[0.6rem] tracking-wide text-core/50 mb-2">total balance</div>
-        <div className="font-display text-[3rem] md:text-[3.6rem] font-semibold text-core leading-none tracking-[-0.02em] tabular-nums">
+        <div className="font-mono text-[0.625rem] tracking-wide text-core/50 mb-2">total balance</div>
+        <div className="font-display text-[3rem] md:text-[3rem] font-semibold text-core leading-none tracking-[-0.02em] tabular-nums">
           ${total.toFixed(2)}
         </div>
-        <div className="font-mono text-[0.62rem] tracking-wide text-core/45 mt-2">
+        <div className="font-mono text-[0.625rem] tracking-wide text-core/45 mt-2">
           usdc · {walletRows.length} wallets
         </div>
 
@@ -629,13 +629,13 @@ function OverviewSection() {
             <div key={b.chain} className="flex flex-col gap-2">
               <div className="flex items-center gap-2">
                 <ChainLogo chain={b.chain} size={18} />
-                <span className="font-display text-[0.88rem] font-medium text-core tracking-tight">{chainMeta[b.chain].label}</span>
+                <span className="font-display text-[0.875rem] font-medium text-core tracking-tight">{chainMeta[b.chain].label}</span>
               </div>
-              <div className="font-display text-[1.35rem] font-semibold text-core leading-none tabular-nums">${b.balance.toFixed(2)}</div>
+              <div className="font-display text-[1.25rem] font-semibold text-core leading-none tabular-nums">${b.balance.toFixed(2)}</div>
               <button
                 onClick={() => copy(b.wallet.address)}
                 title="copy address"
-                className="inline-flex items-center gap-1.5 self-start font-mono text-[0.62rem] tracking-wide text-core/55 hover:text-core transition-colors group"
+                className="inline-flex items-center gap-1.5 self-start font-mono text-[0.625rem] tracking-wide text-core/55 hover:text-core transition-colors group"
               >
                 <span>{shortAddr(b.wallet.address)}</span>
                 <svg viewBox="0 0 24 24" className="w-3 h-3 opacity-40 group-hover:opacity-80 transition-opacity" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -672,16 +672,16 @@ function formatExpiry(dt: Date): { date: string; time: string } {
 }
 
 function SessionExpiryCell({ k }: { k: SessionKey | null }) {
-  if (!k) return <span className="font-mono text-[0.62rem] tracking-wide text-core/35">—</span>
+  if (!k) return <span className="font-mono text-[0.625rem] tracking-wide text-core/35">—</span>
   const dt = sessionExpiry(k)
   const { date, time } = formatExpiry(dt)
   const past = dt.getTime() < Date.now() || k.status === 'inactive'
   return (
     <div className="min-w-0">
-      <div className={`font-mono text-[0.7rem] tabular-nums truncate ${past ? 'text-core/45 line-through decoration-core/30' : 'text-core/75'}`}>
+      <div className={`font-mono text-[0.75rem] tabular-nums truncate ${past ? 'text-core/45 line-through decoration-core/30' : 'text-core/75'}`}>
         {date}
       </div>
-      <div className={`font-mono text-[0.62rem] tabular-nums mt-0.5 ${past ? 'text-core/35' : 'text-core/55'}`}>
+      <div className={`font-mono text-[0.625rem] tabular-nums mt-0.5 ${past ? 'text-core/35' : 'text-core/55'}`}>
         {time}
       </div>
     </div>
@@ -689,12 +689,12 @@ function SessionExpiryCell({ k }: { k: SessionKey | null }) {
 }
 
 function WalletSessionCell({ k }: { k: SessionKey | null }) {
-  if (!k) return <span className="font-mono text-[0.62rem] tracking-wide text-core/35">— not configured</span>
+  if (!k) return <span className="font-mono text-[0.625rem] tracking-wide text-core/35">— not configured</span>
   if (k.status === 'inactive') {
     if (k.inactiveReason === 'limit_reached') {
       return (
         <div className="min-w-0">
-          <div className="flex items-baseline justify-between font-mono text-[0.62rem] tabular-nums text-[#9c2929] mb-1">
+          <div className="flex items-baseline justify-between font-mono text-[0.625rem] tabular-nums text-[#9c2929] mb-1">
             <span>${k.windowLimit.toFixed(2)} <span className="text-[#9c2929]/60">/ ${k.windowLimit.toFixed(0)}</span></span>
             <span className="text-[#9c2929]/70">limit reached</span>
           </div>
@@ -705,15 +705,15 @@ function WalletSessionCell({ k }: { k: SessionKey | null }) {
       )
     }
     if (k.inactiveReason === 'expired') {
-      return <span className="font-mono text-[0.62rem] tracking-wide text-core/55">Expired</span>
+      return <span className="font-mono text-[0.625rem] tracking-wide text-core/55">Expired</span>
     }
-    return <span className="font-mono text-[0.62rem] tracking-wide text-core/55">revoked</span>
+    return <span className="font-mono text-[0.625rem] tracking-wide text-core/55">revoked</span>
   }
   const pct = Math.min(100, (k.windowUsed / k.windowLimit) * 100)
   const near = pct >= 80
   return (
     <div className="min-w-0">
-      <div className="font-mono text-[0.62rem] tabular-nums text-core/75 mb-1">
+      <div className="font-mono text-[0.625rem] tabular-nums text-core/75 mb-1">
         <span>${k.windowUsed.toFixed(2)} <span className="text-core/35">/ ${k.windowLimit.toFixed(0)}</span></span>
       </div>
       <div className="h-1 rounded-full bg-core/8 overflow-hidden">
@@ -741,16 +741,16 @@ function WalletsSection({ onSelect }: { onSelect: (id: string) => void }) {
 
       <div className="grid grid-cols-3 gap-px bg-core/10 rounded-2xl overflow-hidden border border-core/12 mb-7">
         <div className="bg-white/55 px-5 py-4">
-          <div className="font-mono text-[0.58rem] tracking-wide text-core/50">total balance</div>
-          <div className="font-display text-[1.35rem] font-semibold text-core leading-none tabular-nums mt-1.5">${total.toFixed(2)}</div>
+          <div className="font-mono text-[0.625rem] tracking-wide text-core/50">total balance</div>
+          <div className="font-display text-[1.25rem] font-semibold text-core leading-none tabular-nums mt-1.5">${total.toFixed(2)}</div>
         </div>
         <div className="bg-white/55 px-5 py-4">
-          <div className="font-mono text-[0.58rem] tracking-wide text-core/50">wallets</div>
-          <div className="font-display text-[1.35rem] font-semibold text-core leading-none tabular-nums mt-1.5">{walletRows.length}</div>
+          <div className="font-mono text-[0.625rem] tracking-wide text-core/50">wallets</div>
+          <div className="font-display text-[1.25rem] font-semibold text-core leading-none tabular-nums mt-1.5">{walletRows.length}</div>
         </div>
         <div className="bg-white/55 px-5 py-4">
-          <div className="font-mono text-[0.58rem] tracking-wide text-core/50">active session keys</div>
-          <div className="font-display text-[1.35rem] font-semibold text-core leading-none tabular-nums mt-1.5">{activeKeys}</div>
+          <div className="font-mono text-[0.625rem] tracking-wide text-core/50">active session keys</div>
+          <div className="font-display text-[1.25rem] font-semibold text-core leading-none tabular-nums mt-1.5">{activeKeys}</div>
         </div>
       </div>
 
@@ -759,7 +759,7 @@ function WalletsSection({ onSelect }: { onSelect: (id: string) => void }) {
           <button
             key={c}
             onClick={() => setChainFilter(c)}
-            className={`px-2.5 py-1 rounded-full font-mono text-[0.65rem] tracking-wide transition-colors ${
+            className={`px-2.5 py-1 rounded-full font-mono text-[0.75rem] tracking-wide transition-colors ${
               chainFilter === c ? 'bg-core text-white' : 'border border-core/15 text-core/60 hover:text-core'
             }`}
           >
@@ -769,7 +769,7 @@ function WalletsSection({ onSelect }: { onSelect: (id: string) => void }) {
       </div>
 
       <div className="rounded-2xl border border-core/12 bg-white/55 overflow-hidden">
-        <div className="grid grid-cols-[1.2fr_0.8fr_0.7fr_0.8fr_1fr_0.95fr_auto] gap-4 px-5 py-3 border-b border-core/10 font-mono text-[0.6rem] tracking-wide text-core/55 bg-white/35">
+        <div className="grid grid-cols-[1.2fr_0.8fr_0.7fr_0.8fr_1fr_0.95fr_auto] gap-4 px-5 py-3 border-b border-core/10 font-mono text-[0.625rem] tracking-wide text-core/55 bg-white/35">
           <span>Wallet</span>
           <span>Agent</span>
           <span>Chain</span>
@@ -785,19 +785,19 @@ function WalletsSection({ onSelect }: { onSelect: (id: string) => void }) {
             className="w-full text-left grid grid-cols-[1.2fr_0.8fr_0.7fr_0.8fr_1fr_0.95fr_auto] gap-4 px-5 py-4 border-b border-core/8 last:border-b-0 items-center hover:bg-white/35 transition-colors"
           >
             <div className="min-w-0">
-              <div className="font-display text-[0.92rem] font-medium text-core tabular-nums truncate">{shortAddr(w.address)}</div>
-              <div className="font-mono text-[0.62rem] text-core/55 truncate">{w.label}</div>
+              <div className="font-display text-[1rem] font-medium text-core tabular-nums truncate">{shortAddr(w.address)}</div>
+              <div className="font-mono text-[0.625rem] text-core/55 truncate">{w.label}</div>
             </div>
-            <span className="font-mono text-[0.72rem] text-core/70 truncate">{w.agent}</span>
+            <span className="font-mono text-[0.75rem] text-core/70 truncate">{w.agent}</span>
             <ChainBadge chain={w.chain} size={16} />
-            <span className="font-display text-[0.95rem] text-core tabular-nums">${w.balance.toFixed(2)}</span>
+            <span className="font-display text-[1rem] text-core tabular-nums">${w.balance.toFixed(2)}</span>
             <WalletSessionCell k={w.sessionKey} />
             <SessionExpiryCell k={w.sessionKey} />
-            <span className="font-mono text-[0.65rem] tracking-wide text-core/45">→</span>
+            <span className="font-mono text-[0.75rem] tracking-wide text-core/45">→</span>
           </button>
         ))}
         {visible.length === 0 && (
-          <div className="px-5 py-12 text-center font-mono text-[0.72rem] tracking-wide text-core/45">no wallets on this chain</div>
+          <div className="px-5 py-12 text-center font-mono text-[0.75rem] tracking-wide text-core/45">no wallets on this chain</div>
         )}
       </div>
     </div>
@@ -814,19 +814,19 @@ function SessionKeyPanel({ k, walletLabel }: { k: SessionKey; walletLabel: strin
     <div className="rounded-2xl border border-core/12 bg-white/55 p-6">
       <div className="flex items-start justify-between gap-4 mb-5">
         <div>
-          <div className="font-mono text-[0.58rem] tracking-wide text-core/50 mb-1.5">active session key</div>
+          <div className="font-mono text-[0.625rem] tracking-wide text-core/50 mb-1.5">active session key</div>
           <div className="flex items-center gap-2.5">
-            <span className="font-display text-[1.05rem] font-semibold text-core tracking-tight">{k.id}</span>
+            <span className="font-display text-[1rem] font-semibold text-core tracking-tight">{k.id}</span>
             <SessionKeyStatusPill s={k.status} reason={k.inactiveReason} />
           </div>
-          <div className="font-mono text-[0.62rem] text-core/50 mt-1">bound to {walletLabel}</div>
+          <div className="font-mono text-[0.625rem] text-core/50 mt-1">bound to {walletLabel}</div>
         </div>
         {isActive && (
           <div className="flex items-center gap-3">
-            <button onClick={() => notify('Edit limits — coming soon')} className="font-mono text-[0.65rem] tracking-wide text-core/60 hover:text-core transition-colors">
+            <button onClick={() => notify('Edit limits — coming soon')} className="font-mono text-[0.75rem] tracking-wide text-core/60 hover:text-core transition-colors">
               edit limits
             </button>
-            <button onClick={() => notify('Revoke — coming soon')} className="font-mono text-[0.65rem] tracking-wide text-[#9c2929]/70 hover:text-[#9c2929] transition-colors">
+            <button onClick={() => notify('Revoke — coming soon')} className="font-mono text-[0.75rem] tracking-wide text-[#9c2929]/70 hover:text-[#9c2929] transition-colors">
               revoke
             </button>
           </div>
@@ -835,28 +835,28 @@ function SessionKeyPanel({ k, walletLabel }: { k: SessionKey; walletLabel: strin
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-core/10 rounded-xl overflow-hidden border border-core/10 mb-5">
         <div className="bg-white/55 px-4 py-3">
-          <div className="font-mono text-[0.58rem] tracking-wide text-core/50">per-tx max</div>
-          <div className="font-display text-[1.15rem] font-semibold text-core leading-none tabular-nums mt-1.5">${k.perTx.toFixed(2)}</div>
+          <div className="font-mono text-[0.625rem] tracking-wide text-core/50">per-tx max</div>
+          <div className="font-display text-[1.25rem] font-semibold text-core leading-none tabular-nums mt-1.5">${k.perTx.toFixed(2)}</div>
         </div>
         <div className="bg-white/55 px-4 py-3">
-          <div className="font-mono text-[0.58rem] tracking-wide text-core/50">window</div>
-          <div className="font-display text-[1.15rem] font-semibold text-core leading-none tabular-nums mt-1.5">{k.windowHours}h</div>
+          <div className="font-mono text-[0.625rem] tracking-wide text-core/50">window</div>
+          <div className="font-display text-[1.25rem] font-semibold text-core leading-none tabular-nums mt-1.5">{k.windowHours}h</div>
         </div>
         <div className="bg-white/55 px-4 py-3">
-          <div className="font-mono text-[0.58rem] tracking-wide text-core/50">window cap</div>
-          <div className="font-display text-[1.15rem] font-semibold text-core leading-none tabular-nums mt-1.5">${k.windowLimit.toFixed(2)}</div>
+          <div className="font-mono text-[0.625rem] tracking-wide text-core/50">window cap</div>
+          <div className="font-display text-[1.25rem] font-semibold text-core leading-none tabular-nums mt-1.5">${k.windowLimit.toFixed(2)}</div>
         </div>
       </div>
 
       <div>
-        <div className="flex items-baseline justify-between font-mono text-[0.68rem] tabular-nums mb-1.5">
+        <div className="flex items-baseline justify-between font-mono text-[0.75rem] tabular-nums mb-1.5">
           <span className="text-core/55 tracking-wide">used this window</span>
           <span className="text-core/75">${k.windowUsed.toFixed(2)} <span className="text-core/35">/ ${k.windowLimit.toFixed(2)}</span></span>
         </div>
         <div className="h-1.5 rounded-full bg-core/8 overflow-hidden">
           <div className="h-full" style={{ width: `${pct}%`, backgroundColor: near ? '#C28A2C' : '#3F7E4F' }} />
         </div>
-        <div className="font-mono text-[0.6rem] tracking-wide text-core/45 mt-2">
+        <div className="font-mono text-[0.625rem] tracking-wide text-core/45 mt-2">
           window started <span className="text-core/65 tabular-nums">{k.windowStart}</span>
         </div>
       </div>
@@ -907,10 +907,10 @@ function ExportKeyModal({ wallet, onClose }: { wallet: WalletRow; onClose: () =>
         <div className="px-6 pt-6 pb-5 border-b border-core/10">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <div className="font-display text-[1.05rem] font-semibold text-core tracking-tight">Export private key</div>
-              <div className="font-mono text-[0.62rem] text-core/55 mt-1.5">{wallet.label} · {wallet.id}</div>
+              <div className="font-display text-[1rem] font-semibold text-core tracking-tight">Export private key</div>
+              <div className="font-mono text-[0.625rem] text-core/55 mt-1.5">{wallet.label} · {wallet.id}</div>
             </div>
-            <button onClick={onClose} className="text-core/45 hover:text-core transition-colors font-mono text-[0.9rem] leading-none p-1" aria-label="close">×</button>
+            <button onClick={onClose} className="text-core/45 hover:text-core transition-colors font-mono text-[1rem] leading-none p-1" aria-label="close">×</button>
           </div>
         </div>
 
@@ -918,13 +918,13 @@ function ExportKeyModal({ wallet, onClose }: { wallet: WalletRow; onClose: () =>
           {step === 'choose' && (
             <>
               <div className="rounded-lg border border-[#B83C3C]/25 bg-[#B83C3C]/8 px-3.5 py-3 mb-5">
-                <div className="font-display text-[0.78rem] font-medium text-[#9c2929] tracking-tight">Anyone with this key controls the wallet.</div>
-                <div className="font-mono text-[0.62rem] text-core/65 mt-1 leading-relaxed">
+                <div className="font-display text-[0.875rem] font-medium text-[#9c2929] tracking-tight">Anyone with this key controls the wallet.</div>
+                <div className="font-mono text-[0.625rem] text-core/65 mt-1 leading-relaxed">
                   Atara cannot recover funds lost to a leaked key. We recommend exporting only to a hardware wallet or secure password manager.
                 </div>
               </div>
 
-              <div className="font-mono text-[0.6rem] tracking-wide text-core/55 mb-2.5">verify it's you</div>
+              <div className="font-mono text-[0.625rem] tracking-wide text-core/55 mb-2.5">verify it's you</div>
               <div className="flex flex-col gap-2">
                 <button
                   onClick={startPasskey}
@@ -935,10 +935,10 @@ function ExportKeyModal({ wallet, onClose }: { wallet: WalletRow; onClose: () =>
                     <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                   </svg>
                   <div className="flex-1 min-w-0">
-                    <div className="font-display text-[0.85rem] font-medium text-core tracking-tight">Passkey</div>
-                    <div className="font-mono text-[0.6rem] text-core/55 mt-0.5">Touch ID, Face ID, or device PIN</div>
+                    <div className="font-display text-[0.875rem] font-medium text-core tracking-tight">Passkey</div>
+                    <div className="font-mono text-[0.625rem] text-core/55 mt-0.5">Touch ID, Face ID, or device PIN</div>
                   </div>
-                  <span className="font-mono text-[0.65rem] text-core/45">→</span>
+                  <span className="font-mono text-[0.75rem] text-core/45">→</span>
                 </button>
                 <button
                   onClick={sendEmail}
@@ -949,10 +949,10 @@ function ExportKeyModal({ wallet, onClose }: { wallet: WalletRow; onClose: () =>
                     <path d="m3 7 9 6 9-6" />
                   </svg>
                   <div className="flex-1 min-w-0">
-                    <div className="font-display text-[0.85rem] font-medium text-core tracking-tight">Email code</div>
-                    <div className="font-mono text-[0.6rem] text-core/55 mt-0.5 truncate">Send a 6-digit code to {account.email}</div>
+                    <div className="font-display text-[0.875rem] font-medium text-core tracking-tight">Email code</div>
+                    <div className="font-mono text-[0.625rem] text-core/55 mt-0.5 truncate">Send a 6-digit code to {account.email}</div>
                   </div>
-                  <span className="font-mono text-[0.65rem] text-core/45">→</span>
+                  <span className="font-mono text-[0.75rem] text-core/45">→</span>
                 </button>
               </div>
             </>
@@ -961,14 +961,14 @@ function ExportKeyModal({ wallet, onClose }: { wallet: WalletRow; onClose: () =>
           {step === 'passkey' && (
             <div className="py-8 flex flex-col items-center text-center">
               <div className="w-12 h-12 rounded-full border-2 border-core/15 border-t-core animate-spin mb-4" />
-              <div className="font-display text-[0.92rem] font-medium text-core tracking-tight">Waiting for passkey…</div>
-              <div className="font-mono text-[0.62rem] text-core/55 mt-1.5">Follow the prompt on your device.</div>
+              <div className="font-display text-[1rem] font-medium text-core tracking-tight">Waiting for passkey…</div>
+              <div className="font-mono text-[0.625rem] text-core/55 mt-1.5">Follow the prompt on your device.</div>
             </div>
           )}
 
           {step === 'email_sent' && (
             <>
-              <div className="font-mono text-[0.62rem] tracking-wide text-core/55 mb-2">
+              <div className="font-mono text-[0.625rem] tracking-wide text-core/55 mb-2">
                 code sent to <span className="text-core/80">{account.email}</span>
               </div>
               <input
@@ -976,17 +976,17 @@ function ExportKeyModal({ wallet, onClose }: { wallet: WalletRow; onClose: () =>
                 value={code}
                 onChange={(e) => setCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
                 placeholder="123456"
-                className="w-full px-4 py-3 rounded-xl border border-core/15 bg-white/65 font-mono text-[1.05rem] tabular-nums tracking-[0.4em] text-core text-center placeholder:text-core/25 focus:outline-none focus:border-core/40"
+                className="w-full px-4 py-3 rounded-xl border border-core/15 bg-white/65 font-mono text-[1rem] tabular-nums tracking-[0.4em] text-core text-center placeholder:text-core/25 focus:outline-none focus:border-core/40"
               />
               <button
                 onClick={verifyCode}
                 disabled={code.length < 6}
-                className="w-full mt-4 px-4 py-2.5 rounded-full text-white font-medium text-[0.82rem] tracking-tight transition-opacity disabled:opacity-40"
+                className="w-full mt-4 px-4 py-2.5 rounded-full text-white font-medium text-[0.875rem] tracking-tight transition-opacity disabled:opacity-40"
                 style={{ backgroundColor: '#1A151C' }}
               >
                 Verify
               </button>
-              <button onClick={() => { setCode(''); notify('Code re-sent') }} className="block mx-auto mt-3 font-mono text-[0.62rem] tracking-wide text-core/55 hover:text-core transition-colors">
+              <button onClick={() => { setCode(''); notify('Code re-sent') }} className="block mx-auto mt-3 font-mono text-[0.625rem] tracking-wide text-core/55 hover:text-core transition-colors">
                 resend code
               </button>
             </>
@@ -995,16 +995,16 @@ function ExportKeyModal({ wallet, onClose }: { wallet: WalletRow; onClose: () =>
           {step === 'verifying' && (
             <div className="py-8 flex flex-col items-center text-center">
               <div className="w-12 h-12 rounded-full border-2 border-core/15 border-t-core animate-spin mb-4" />
-              <div className="font-display text-[0.92rem] font-medium text-core tracking-tight">Verifying…</div>
+              <div className="font-display text-[1rem] font-medium text-core tracking-tight">Verifying…</div>
             </div>
           )}
 
           {step === 'revealed' && (
             <>
-              <div className="font-mono text-[0.6rem] tracking-wide text-core/55 mb-2">private key</div>
+              <div className="font-mono text-[0.625rem] tracking-wide text-core/55 mb-2">private key</div>
               <div className="relative">
                 <div
-                  className={`rounded-xl border border-core/15 bg-[#1A151C] text-[#E8D5C4] px-4 py-3.5 font-mono text-[0.7rem] leading-relaxed break-all select-all transition-[filter] ${
+                  className={`rounded-xl border border-core/15 bg-[#1A151C] text-[#E8D5C4] px-4 py-3.5 font-mono text-[0.75rem] leading-relaxed break-all select-all transition-[filter] ${
                     revealed ? '' : 'blur-[6px] pointer-events-none'
                   }`}
                 >
@@ -1013,7 +1013,7 @@ function ExportKeyModal({ wallet, onClose }: { wallet: WalletRow; onClose: () =>
                 {!revealed && (
                   <button
                     onClick={() => setRevealed(true)}
-                    className="absolute inset-0 flex items-center justify-center font-display text-[0.82rem] font-medium text-core tracking-tight"
+                    className="absolute inset-0 flex items-center justify-center font-display text-[0.875rem] font-medium text-core tracking-tight"
                   >
                     Tap to reveal
                   </button>
@@ -1022,19 +1022,19 @@ function ExportKeyModal({ wallet, onClose }: { wallet: WalletRow; onClose: () =>
               <div className="flex items-center gap-3 mt-4">
                 <button
                   onClick={() => { navigator.clipboard.writeText(privateKey); notify('Private key copied') }}
-                  className="flex-1 px-4 py-2.5 rounded-full text-white font-medium text-[0.82rem] tracking-tight transition-opacity hover:opacity-90"
+                  className="flex-1 px-4 py-2.5 rounded-full text-white font-medium text-[0.875rem] tracking-tight transition-opacity hover:opacity-90"
                   style={{ backgroundColor: '#1A151C' }}
                 >
                   Copy to clipboard
                 </button>
                 <button
                   onClick={onClose}
-                  className="px-4 py-2.5 rounded-full border border-core/20 font-display text-[0.82rem] font-medium text-core/75 hover:text-core transition-colors"
+                  className="px-4 py-2.5 rounded-full border border-core/20 font-display text-[0.875rem] font-medium text-core/75 hover:text-core transition-colors"
                 >
                   Done
                 </button>
               </div>
-              <div className="font-mono text-[0.6rem] text-core/55 mt-3 leading-relaxed">
+              <div className="font-mono text-[0.625rem] text-core/55 mt-3 leading-relaxed">
                 This key is shown once. Atara does not store it after this view closes.
               </div>
             </>
@@ -1059,7 +1059,7 @@ function WalletDetailView({ wallet, onBack }: { wallet: WalletRow; onBack: () =>
 
   return (
     <div className="space-y-6">
-      <button onClick={onBack} className="inline-flex items-center gap-1.5 font-mono text-[0.65rem] tracking-wide text-core/55 hover:text-core transition-colors">
+      <button onClick={onBack} className="inline-flex items-center gap-1.5 font-mono text-[0.75rem] tracking-wide text-core/55 hover:text-core transition-colors">
         <span aria-hidden>←</span> back to wallets
       </button>
 
@@ -1067,13 +1067,13 @@ function WalletDetailView({ wallet, onBack }: { wallet: WalletRow; onBack: () =>
         <div className="flex items-start justify-between gap-4">
           <div className="inline-flex items-center gap-2.5 px-2.5 py-1.5 rounded-full border border-core/12 bg-white/60">
             <ChainLogo chain={wallet.chain} size={20} />
-            <span className="font-display text-[0.85rem] font-semibold text-core tracking-tight">{chain.label}</span>
-            <span className="font-mono text-[0.58rem] tracking-wide text-core/45">network</span>
+            <span className="font-display text-[0.875rem] font-semibold text-core tracking-tight">{chain.label}</span>
+            <span className="font-mono text-[0.625rem] tracking-wide text-core/45">network</span>
           </div>
           <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={() => setExportOpen(true)}
-              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full border border-core/20 font-display text-[0.78rem] font-medium text-core/80 hover:text-core hover:border-core/40 transition-colors"
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full border border-core/20 font-display text-[0.875rem] font-medium text-core/80 hover:text-core hover:border-core/40 transition-colors"
             >
               <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 3v12" /><path d="m7 8 5-5 5 5" /><path d="M5 21h14" />
@@ -1082,7 +1082,7 @@ function WalletDetailView({ wallet, onBack }: { wallet: WalletRow; onBack: () =>
             </button>
             <button
               onClick={() => setTopUpOpen(true)}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-white font-medium text-[0.82rem] tracking-tight shadow-sm hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-white font-medium text-[0.875rem] tracking-tight shadow-sm hover:opacity-90 transition-opacity"
               style={{ backgroundColor: '#1A151C' }}
             >
               Top up <span aria-hidden>+</span>
@@ -1095,7 +1095,7 @@ function WalletDetailView({ wallet, onBack }: { wallet: WalletRow; onBack: () =>
           title="copy address"
           className="group mt-5 flex items-center gap-3 text-left max-w-full"
         >
-          <span className="font-display text-[1.7rem] md:text-[2rem] font-semibold text-core tracking-tight leading-none break-all">
+          <span className="font-display text-[1.5rem] md:text-[2rem] font-semibold text-core tracking-tight leading-none break-all">
             {shortAddr(wallet.address)}
           </span>
           <svg viewBox="0 0 24 24" className="w-4 h-4 text-core/40 group-hover:text-core/80 transition-colors shrink-0" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -1103,19 +1103,19 @@ function WalletDetailView({ wallet, onBack }: { wallet: WalletRow; onBack: () =>
             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
           </svg>
         </button>
-        <div className="font-mono text-[0.6rem] tracking-wide text-core/45 mt-2 break-all">{wallet.address}</div>
+        <div className="font-mono text-[0.625rem] tracking-wide text-core/45 mt-2 break-all">{wallet.address}</div>
 
         <div className="mt-5 pt-5 border-t border-core/10 flex items-baseline justify-between gap-4">
           <div>
-            <div className="font-mono text-[0.6rem] tracking-wide text-core/50">balance</div>
+            <div className="font-mono text-[0.625rem] tracking-wide text-core/50">balance</div>
             <div className="font-display text-[2rem] font-semibold text-core leading-none tracking-tight tabular-nums mt-1.5">
-              ${wallet.balance.toFixed(2)} <span className="font-mono text-[0.7rem] tracking-wide text-core/45 ml-1">usdc</span>
+              ${wallet.balance.toFixed(2)} <span className="font-mono text-[0.75rem] tracking-wide text-core/45 ml-1">usdc</span>
             </div>
           </div>
           <div className="text-right">
-            <div className="font-mono text-[0.6rem] tracking-wide text-core/50">{wallet.label}</div>
-            <div className="font-mono text-[0.62rem] text-core/55 mt-1">agent {wallet.agent} · {wallet.id}</div>
-            <div className="font-mono text-[0.6rem] text-core/40 mt-0.5">created {wallet.created}</div>
+            <div className="font-mono text-[0.625rem] tracking-wide text-core/50">{wallet.label}</div>
+            <div className="font-mono text-[0.625rem] text-core/55 mt-1">agent {wallet.agent} · {wallet.id}</div>
+            <div className="font-mono text-[0.625rem] text-core/40 mt-0.5">created {wallet.created}</div>
           </div>
         </div>
       </div>
@@ -1125,12 +1125,12 @@ function WalletDetailView({ wallet, onBack }: { wallet: WalletRow; onBack: () =>
       ) : (
         <div className="rounded-2xl border border-dashed border-core/20 bg-white/30 p-6 flex items-center justify-between gap-4">
           <div>
-            <div className="font-display text-[0.95rem] font-medium text-core tracking-tight">No active session key</div>
-            <div className="font-mono text-[0.65rem] text-core/55 mt-1.5">Agents need a session key to spend from this wallet at runtime.</div>
+            <div className="font-display text-[1rem] font-medium text-core tracking-tight">No active session key</div>
+            <div className="font-mono text-[0.75rem] text-core/55 mt-1.5">Agents need a session key to spend from this wallet at runtime.</div>
           </div>
           <button
             onClick={() => notify('Mint session key — coming soon')}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-white font-medium text-[0.78rem] tracking-tight shadow-sm hover:opacity-90 transition-opacity shrink-0"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-white font-medium text-[0.875rem] tracking-tight shadow-sm hover:opacity-90 transition-opacity shrink-0"
             style={{ backgroundColor: '#1A151C' }}
           >
             Mint session key <span aria-hidden>+</span>
@@ -1140,18 +1140,18 @@ function WalletDetailView({ wallet, onBack }: { wallet: WalletRow; onBack: () =>
 
       <div>
         <div className="flex items-baseline justify-between mb-3">
-          <h3 className="font-display text-[0.95rem] font-semibold text-core tracking-tight">Recent receipts</h3>
-          <span className="font-mono text-[0.6rem] tracking-wide text-core/45">last 5</span>
+          <h3 className="font-display text-[1rem] font-semibold text-core tracking-tight">Recent receipts</h3>
+          <span className="font-mono text-[0.625rem] tracking-wide text-core/45">last 5</span>
         </div>
         <div className="rounded-2xl border border-core/12 bg-white/55 overflow-hidden">
           {recent.length === 0 && (
-            <div className="px-5 py-10 text-center font-mono text-[0.72rem] tracking-wide text-core/45">no receipts yet</div>
+            <div className="px-5 py-10 text-center font-mono text-[0.75rem] tracking-wide text-core/45">no receipts yet</div>
           )}
           {recent.map((t) => (
             <div key={t.id} className="grid grid-cols-[0.7fr_1.6fr_0.8fr_0.9fr_1fr] gap-3 px-5 py-3 border-b border-core/8 last:border-b-0 items-center">
-              <span className="font-mono text-[0.7rem] text-core/65 tabular-nums">{t.time}</span>
-              <span className="font-mono text-[0.72rem] text-core truncate">{t.merchant}</span>
-              <span className="font-mono text-[0.72rem] text-core tabular-nums">${t.amount.toFixed(2)}</span>
+              <span className="font-mono text-[0.75rem] text-core/65 tabular-nums">{t.time}</span>
+              <span className="font-mono text-[0.75rem] text-core truncate">{t.merchant}</span>
+              <span className="font-mono text-[0.75rem] text-core tabular-nums">${t.amount.toFixed(2)}</span>
               <TxStatusPill s={t.status} />
               <TxHashLink hash={t.hash} chain={t.chain} />
             </div>
@@ -1181,16 +1181,16 @@ function ReceiptsSection() {
 
       <div className="grid grid-cols-3 gap-px bg-core/10 rounded-2xl overflow-hidden border border-core/12 mb-7">
         <div className="bg-white/55 px-5 py-4">
-          <div className="font-mono text-[0.58rem] tracking-wide text-core/50">spend today</div>
-          <div className="font-display text-[1.35rem] font-semibold text-core leading-none tabular-nums mt-1.5">${totalSpend.toFixed(2)}</div>
+          <div className="font-mono text-[0.625rem] tracking-wide text-core/50">spend today</div>
+          <div className="font-display text-[1.25rem] font-semibold text-core leading-none tabular-nums mt-1.5">${totalSpend.toFixed(2)}</div>
         </div>
         <div className="bg-white/55 px-5 py-4">
-          <div className="font-mono text-[0.58rem] tracking-wide text-core/50">success</div>
-          <div className="font-display text-[1.35rem] font-semibold text-core leading-none tabular-nums mt-1.5">{successCount}</div>
+          <div className="font-mono text-[0.625rem] tracking-wide text-core/50">success</div>
+          <div className="font-display text-[1.25rem] font-semibold text-core leading-none tabular-nums mt-1.5">{successCount}</div>
         </div>
         <div className="bg-white/55 px-5 py-4">
-          <div className="font-mono text-[0.58rem] tracking-wide text-core/50">failed</div>
-          <div className="font-display text-[1.35rem] font-semibold text-core leading-none tabular-nums mt-1.5">{failedCount}</div>
+          <div className="font-mono text-[0.625rem] tracking-wide text-core/50">failed</div>
+          <div className="font-display text-[1.25rem] font-semibold text-core leading-none tabular-nums mt-1.5">{failedCount}</div>
         </div>
       </div>
 
@@ -1199,7 +1199,7 @@ function ReceiptsSection() {
           <button
             key={s}
             onClick={() => setStatusFilter(s)}
-            className={`px-2.5 py-1 rounded-full font-mono text-[0.65rem] tracking-wide transition-colors ${
+            className={`px-2.5 py-1 rounded-full font-mono text-[0.75rem] tracking-wide transition-colors ${
               statusFilter === s ? 'bg-core text-white' : 'border border-core/15 text-core/60 hover:text-core'
             }`}
           >
@@ -1209,7 +1209,7 @@ function ReceiptsSection() {
       </div>
 
       <div className="rounded-2xl border border-core/12 bg-white/55 overflow-hidden">
-        <div className="grid grid-cols-[0.7fr_1fr_1.6fr_0.8fr_0.8fr_0.9fr_1fr] gap-3 px-5 py-3 border-b border-core/10 font-mono text-[0.6rem] tracking-wide text-core/55 bg-white/35">
+        <div className="grid grid-cols-[0.7fr_1fr_1.6fr_0.8fr_0.8fr_0.9fr_1fr] gap-3 px-5 py-3 border-b border-core/10 font-mono text-[0.625rem] tracking-wide text-core/55 bg-white/35">
           <span>Time</span>
           <span>Agent</span>
           <span>Merchant</span>
@@ -1220,17 +1220,17 @@ function ReceiptsSection() {
         </div>
         {visible.map((t) => (
           <div key={t.id} className="grid grid-cols-[0.7fr_1fr_1.6fr_0.8fr_0.8fr_0.9fr_1fr] gap-3 px-5 py-3 border-b border-core/8 last:border-b-0 items-center">
-            <span className="font-mono text-[0.7rem] text-core/65 tabular-nums">{t.time}</span>
-            <span className="font-mono text-[0.72rem] text-core/75 truncate">{t.agent}</span>
-            <span className="font-mono text-[0.72rem] text-core truncate">{t.merchant}</span>
-            <span className="font-mono text-[0.72rem] text-core tabular-nums">${t.amount.toFixed(2)}</span>
+            <span className="font-mono text-[0.75rem] text-core/65 tabular-nums">{t.time}</span>
+            <span className="font-mono text-[0.75rem] text-core/75 truncate">{t.agent}</span>
+            <span className="font-mono text-[0.75rem] text-core truncate">{t.merchant}</span>
+            <span className="font-mono text-[0.75rem] text-core tabular-nums">${t.amount.toFixed(2)}</span>
             <ChainBadge chain={t.chain} size={16} />
             <TxStatusPill s={t.status} />
             <TxHashLink hash={t.hash} chain={t.chain} />
           </div>
         ))}
         {visible.length === 0 && (
-          <div className="px-5 py-12 text-center font-mono text-[0.72rem] tracking-wide text-core/45">no transactions match</div>
+          <div className="px-5 py-12 text-center font-mono text-[0.75rem] tracking-wide text-core/45">no transactions match</div>
         )}
       </div>
     </div>
@@ -1248,7 +1248,7 @@ function KeysSection({ env }: { env: Env }) {
         action={
           <button
             onClick={() => notify('Key creation — coming soon')}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-white font-medium text-[0.82rem] tracking-tight shadow-sm hover:opacity-90 transition-opacity"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-white font-medium text-[0.875rem] tracking-tight shadow-sm hover:opacity-90 transition-opacity"
             style={{ backgroundColor: '#1A151C' }}
           >
             Create key <span aria-hidden>+</span>
@@ -1257,7 +1257,7 @@ function KeysSection({ env }: { env: Env }) {
       />
 
       <div className="rounded-2xl border border-core/12 bg-white/55 overflow-hidden">
-        <div className="grid grid-cols-[1.2fr_1fr_1fr_0.8fr_0.8fr_auto] gap-4 px-5 py-3 border-b border-core/10 font-mono text-[0.6rem] tracking-wide text-core/55 bg-white/35">
+        <div className="grid grid-cols-[1.2fr_1fr_1fr_0.8fr_0.8fr_auto] gap-4 px-5 py-3 border-b border-core/10 font-mono text-[0.625rem] tracking-wide text-core/55 bg-white/35">
           <span>Name</span>
           <span>Secret</span>
           <span>Publishable</span>
@@ -1269,20 +1269,20 @@ function KeysSection({ env }: { env: Env }) {
           <div key={k.id} className="grid grid-cols-[1.2fr_1fr_1fr_0.8fr_0.8fr_auto] gap-4 px-5 py-4 border-b border-core/8 last:border-b-0 items-center">
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#3F7E4F]" />
-              <span className="font-display text-[0.88rem] font-medium text-core">{k.name}</span>
+              <span className="font-display text-[0.875rem] font-medium text-core">{k.name}</span>
             </div>
             <CopyText text={k.prefix} />
             <CopyText text={k.pub} />
-            <span className="font-mono text-[0.72rem] text-core/65">{k.created}</span>
-            <span className="font-mono text-[0.72rem] text-core/65">{k.last_used}</span>
+            <span className="font-mono text-[0.75rem] text-core/65">{k.created}</span>
+            <span className="font-mono text-[0.75rem] text-core/65">{k.last_used}</span>
             <div className="flex items-center gap-3 justify-end">
-              <button onClick={() => notify('Rotate — coming soon')} className="font-mono text-[0.65rem] tracking-wide text-core/60 hover:text-core transition-colors">rotate</button>
-              <button onClick={() => notify('Revoke — coming soon')} className="font-mono text-[0.65rem] tracking-wide text-[#9c2929]/70 hover:text-[#9c2929] transition-colors">revoke</button>
+              <button onClick={() => notify('Rotate — coming soon')} className="font-mono text-[0.75rem] tracking-wide text-core/60 hover:text-core transition-colors">rotate</button>
+              <button onClick={() => notify('Revoke — coming soon')} className="font-mono text-[0.75rem] tracking-wide text-[#9c2929]/70 hover:text-[#9c2929] transition-colors">revoke</button>
             </div>
           </div>
         ))}
         {visible.length === 0 && (
-          <div className="px-5 py-12 text-center font-mono text-[0.72rem] tracking-wide text-core/45">no keys in {env} yet</div>
+          <div className="px-5 py-12 text-center font-mono text-[0.75rem] tracking-wide text-core/45">no keys in {env} yet</div>
         )}
       </div>
     </div>
@@ -1304,13 +1304,13 @@ function LogsSection({ env }: { env: Env }) {
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
             placeholder="filter by path or request_id…"
-            className="w-72 px-3 py-2 rounded-full border border-core/15 bg-white/65 font-mono text-[0.72rem] text-core placeholder:text-core/35 focus:outline-none focus:border-core/40"
+            className="w-72 px-3 py-2 rounded-full border border-core/15 bg-white/65 font-mono text-[0.75rem] text-core placeholder:text-core/35 focus:outline-none focus:border-core/40"
           />
         }
       />
 
       <div className="rounded-2xl border border-core/12 bg-white/55 overflow-hidden">
-        <div className="grid grid-cols-[0.7fr_0.6fr_2.6fr_0.6fr_0.6fr_1fr_1fr] gap-3 px-5 py-3 border-b border-core/10 font-mono text-[0.6rem] tracking-wide text-core/55 bg-white/35">
+        <div className="grid grid-cols-[0.7fr_0.6fr_2.6fr_0.6fr_0.6fr_1fr_1fr] gap-3 px-5 py-3 border-b border-core/10 font-mono text-[0.625rem] tracking-wide text-core/55 bg-white/35">
           <span>Time</span><span>Method</span><span>Endpoint</span><span>Status</span><span>Latency</span><span>Request id</span><span>Key</span>
         </div>
         {visible.map((l) => {
@@ -1318,19 +1318,19 @@ function LogsSection({ env }: { env: Env }) {
           return (
             <div key={l.request_id} className="border-b border-core/8 last:border-b-0">
               <button onClick={() => setOpen(expanded ? null : l.request_id)} className="w-full grid grid-cols-[0.7fr_0.6fr_2.6fr_0.6fr_0.6fr_1fr_1fr] gap-3 px-5 py-3 items-center text-left hover:bg-white/35 transition-colors">
-                <span className="font-mono text-[0.7rem] text-core/65 tabular-nums">{l.time}</span>
+                <span className="font-mono text-[0.75rem] text-core/65 tabular-nums">{l.time}</span>
                 <MethodPill m={l.method} />
-                <span className="font-mono text-[0.72rem] text-core truncate">{l.path}</span>
+                <span className="font-mono text-[0.75rem] text-core truncate">{l.path}</span>
                 <StatusPill code={l.status} />
-                <span className="font-mono text-[0.7rem] text-core/65 tabular-nums">{l.latency}ms</span>
-                <span className="font-mono text-[0.7rem] text-core/55 truncate">{l.request_id}</span>
-                <span className="font-mono text-[0.7rem] text-core/55 truncate">{l.key}</span>
+                <span className="font-mono text-[0.75rem] text-core/65 tabular-nums">{l.latency}ms</span>
+                <span className="font-mono text-[0.75rem] text-core/55 truncate">{l.request_id}</span>
+                <span className="font-mono text-[0.75rem] text-core/55 truncate">{l.key}</span>
               </button>
               {expanded && (
                 <div className="px-5 py-4 bg-[#1A151C] text-[#E8D5C4]">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5 font-mono text-[0.72rem] leading-relaxed">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5 font-mono text-[0.75rem] leading-relaxed">
                     <div>
-                      <div className="text-[#8CB6E8] mb-1.5 text-[0.6rem] tracking-wide">request</div>
+                      <div className="text-[#8CB6E8] mb-1.5 text-[0.625rem] tracking-wide">request</div>
                       <pre className="whitespace-pre-wrap text-[#E8D5C4]/85">
 {`${l.method} ${l.path}
 Authorization: Bearer ${l.key.replace('…', '…<redacted>…')}
@@ -1345,7 +1345,7 @@ ${l.method !== 'GET' ? `{
                       </pre>
                     </div>
                     <div>
-                      <div className="text-[#8CB6E8] mb-1.5 text-[0.6rem] tracking-wide">response · {l.latency}ms</div>
+                      <div className="text-[#8CB6E8] mb-1.5 text-[0.625rem] tracking-wide">response · {l.latency}ms</div>
                       <pre className="whitespace-pre-wrap text-[#E8D5C4]/85">
 {l.status < 300 ? `{
   "id":     "tx_01J7K8P2…",
@@ -1371,7 +1371,7 @@ ${l.method !== 'GET' ? `{
           )
         })}
         {visible.length === 0 && (
-          <div className="px-5 py-12 text-center font-mono text-[0.72rem] tracking-wide text-core/45">no logs match</div>
+          <div className="px-5 py-12 text-center font-mono text-[0.75rem] tracking-wide text-core/45">no logs match</div>
         )}
       </div>
     </div>
@@ -1382,7 +1382,7 @@ function SettingsSection() {
   return (
     <div>
       <SectionHeader title="Settings" sub="Tenant configuration, webhooks, members." />
-      <div className="rounded-2xl border border-core/12 bg-white/55 p-6 font-mono text-[0.72rem] text-core/55">coming soon</div>
+      <div className="rounded-2xl border border-core/12 bg-white/55 p-6 font-mono text-[0.75rem] text-core/55">coming soon</div>
     </div>
   )
 }
@@ -1432,7 +1432,7 @@ function AccountMenu() {
               <path d="m16 17 5-5-5-5" />
               <path d="M21 12H9" />
             </svg>
-            <span className="font-display text-[0.8rem] font-medium text-[#9c2929]">Sign out</span>
+            <span className="font-display text-[0.875rem] font-medium text-[#9c2929]">Sign out</span>
           </button>
         </div>
       )}
@@ -1442,8 +1442,8 @@ function AccountMenu() {
       >
         <div className="w-7 h-7 rounded-full bg-core/15 flex items-center justify-center font-display text-[0.75rem] font-semibold text-core">{account.email[0]}</div>
         <div className="min-w-0 flex-1">
-          <div className="font-display text-[0.78rem] font-medium text-core truncate">{account.company}</div>
-          <div className="font-mono text-[0.6rem] text-core/55 truncate">{account.tenant_id}</div>
+          <div className="font-display text-[0.875rem] font-medium text-core truncate">{account.company}</div>
+          <div className="font-mono text-[0.625rem] text-core/55 truncate">{account.tenant_id}</div>
         </div>
         <svg viewBox="0 0 24 24" className={`w-3 h-3 text-core/45 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="m6 9 6 6 6-6" />
@@ -1471,8 +1471,8 @@ export default function Dashboard() {
 
       <aside className="lg:fixed lg:inset-y-0 lg:left-0 lg:w-[232px] lg:border-r lg:border-core/10 lg:bg-[#EFE3D3]/55 lg:backdrop-blur-sm lg:flex lg:flex-col z-20">
         <div className="px-5 pt-8 pb-7">
-          <a href="#" onClick={(e) => { e.preventDefault(); window.location.hash = '' }} className="font-display text-[1.3rem] tracking-[0.2em] font-semibold text-core hover:opacity-70 transition-opacity">Atara</a>
-          <div className="font-mono text-[0.55rem] tracking-wide text-core/45 mt-1.5">dashboard</div>
+          <a href="#" onClick={(e) => { e.preventDefault(); window.location.hash = '' }} className="font-display text-[1.25rem] tracking-[0.2em] font-semibold text-core hover:opacity-70 transition-opacity">Atara</a>
+          <div className="font-mono text-[0.625rem] tracking-wide text-core/45 mt-1.5">dashboard</div>
         </div>
 
         <nav className="px-3 flex flex-col gap-0.5 flex-1">
@@ -1482,7 +1482,7 @@ export default function Dashboard() {
               <button
                 key={n.id}
                 onClick={() => setSection(n.id)}
-                className={`flex items-center gap-2.5 text-left px-3 py-2 rounded-lg text-[0.85rem] tracking-tight transition-colors ${
+                className={`flex items-center gap-2.5 text-left px-3 py-2 rounded-lg text-[0.875rem] tracking-tight transition-colors ${
                   active ? 'bg-core text-white font-medium' : 'text-core/70 hover:text-core hover:bg-white/40'
                 }`}
               >
